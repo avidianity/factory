@@ -1,0 +1,4 @@
+# Check local links and heading anchors only; external sites are not part of the Kit's contract.
+offline = true
+include_fragments = "anchor-only"
+no_progress = true

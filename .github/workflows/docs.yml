@@ -1,0 +1,62 @@
+name: docs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - name: Lint Markdown
+        uses: DavidAnson/markdownlint-cli2-action@v25.0.0
+        with:
+          config: .markdownlint-cli2.jsonc
+          globs: "**/*.md"
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2.9.0
+        with:
+          args: --config lychee.toml "./**/*.md"
+          fail: true
+          failIfEmpty: true
+
+      - name: Check page sizes
+        run: |
+          status=0
+          while IFS= read -r -d '' file; do
+            size=$(wc -c < "$file")
+            if [ "$size" -ge 32000 ]; then
+              echo "::error file=$file::$file is $size bytes; the budget is 32000. Split it."
+              status=1
+            fi
+          done < <(find . -name '*.md' -not -path './.git/*' -print0)
+          exit $status
+
+      - name: Check denied words
+        env:
+          DENYLIST_PATTERNS: ${{ secrets.DENYLIST_PATTERNS }}
+        run: |
+          if grep -rn --include='*.md' $'\xe2\x80\x94' . ; then
+            echo "::error::Em dash found. Use a plain dash."
+            exit 1
+          fi
+          if [ -z "$DENYLIST_PATTERNS" ]; then
+            if [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}" ]; then
+              echo "Denylist skipped: secrets are not available to pull requests from forks."
+              exit 0
+            fi
+            echo "::error::The DENYLIST_PATTERNS secret is not set."
+            exit 1
+          fi
+          printf '%s\n' "$DENYLIST_PATTERNS" > "$RUNNER_TEMP/denylist"
+          if grep -rliE -f "$RUNNER_TEMP/denylist" --exclude-dir=.git . ; then
+            echo "::error::A denied word is in the files listed above."
+            exit 1
+          fi
