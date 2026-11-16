@@ -27,6 +27,8 @@ Bootstrap creates these labels:
 | `correction` | A repeated agent mistake that needs a check or a better API |
 | `escaped` | A bug found after its change merged |
 | `needs-triage` | A failure or report that nobody has classified yet |
+| `budget` | A Feedback loop took 80% of its Feedback budget or more |
+| `cleanup` | Old comments, dead code, or duplicate code in one module that existed before Bootstrap |
 | `tier-0` to `tier-4` | The Tier that the tier check gave a pull request |
 | `<owner label>` | The person that the working agent works for; one label per person |
 

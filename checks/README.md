@@ -53,6 +53,10 @@ A check that a hook runs must also run in CI, because a hook can be skipped on a
 | [no-suppressions](./no-suppressions.md) | The Project has a linter or type checker |
 | [no-network-in-tests](./no-network-in-tests.md) | The Project has automated tests |
 | [merged-result](./merged-result.md) | Always |
+| [feedback-budget](./feedback-budget.md) | Always |
+| [no-comments](./no-comments.md) | The Project has application code |
+| [no-dead-code](./no-dead-code.md) | The Project has application code |
+| [no-duplicate-code](./no-duplicate-code.md) | The Project has application code |
 
 ## Adding a check spec to a Project
 

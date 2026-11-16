@@ -48,7 +48,7 @@ The check spec [risk-tier](../../checks/risk-tier.md) defines the check.
 | 0 | Mechanical | Formatting, generated code from an approved source, a document fix |
 | 1 | Low | A local bug fix with a fail-first test, touching no risk area |
 | 2 | Medium | Behavior across modules, a public API, a dependency change, background job behavior |
-| 3 | High | Authentication, authorization, isolation between users or tenants, money, schema migrations, secrets, destructive jobs, CI and check configuration |
+| 3 | High | Authentication, authorization, isolation between users or tenants, money, schema migrations, secrets, destructive jobs, CI and check configuration, Feedback budgets |
 | 4 | Critical | Bulk data changes, production access changes, irreversible operations |
 
 The Project's tier map lists the paths for each Tier.
