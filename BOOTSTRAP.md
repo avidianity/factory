@@ -109,6 +109,7 @@ The plan lists:
 - Each check that Bootstrap will build, and each check spec that an existing check already covers.
 - Each conflict and the Owner's answer.
 - Each label that Bootstrap will create in the tracker.
+- For an existing Project, one `cleanup` issue per module that holds comments, dead code, or duplicate code.
 
 Get the Owner's approval of the plan before Step 5.
 
@@ -154,6 +155,11 @@ For each check spec in the plan:
 A check that you cannot prove both ways is not done.
 After two failed attempts on one check, record it in the plan as open, tell the Owner, and continue with the next check.
 
+When you build [feedback-budget](./checks/feedback-budget.md), measure each Feedback loop once.
+A loop that is already over its budget is a conflict for the Owner.
+Recommend making the loop fast before the check turns on.
+When the Owner chooses a higher budget for now, record it in an ADR with the date to return to the Default, and open a `budget` issue.
+
 ## Step 7: prove the setup
 
 1. Start a fresh agent session that has seen none of this work.
@@ -179,6 +185,6 @@ After two failed attempts on one check, record it in the plan as open, tell the 
    - which checks run, and where;
    - the open items and the known-red list;
    - what to do next: usually the first real task.
-4. After the merge, create the tracker labels.
+4. After the merge, create the tracker labels, then the `cleanup` issues from the plan.
 
 Bootstrap is done when the pull request is merged and the labels exist.

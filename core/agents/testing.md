@@ -38,6 +38,43 @@ After a tier passes, repeat it only for new changes, new failures, or a concern 
 
 A change to documents only needs the document checks, not application tests.
 
+## Mandatory: Feedback budget
+
+Each Feedback loop has a Feedback budget.
+Code growth must never make a loop slower than its budget.
+
+| Feedback loop | What it runs | Feedback budget |
+| ------------- | ------------ | --------------- |
+| Git hook | The hook checks on the changed files | 30 seconds |
+| Relevant tier | `<affected tests command>` on the changed files | 2 minutes |
+| CI gate | Every required CI job on one revision, wall clock | 10 minutes |
+
+The numbers are Defaults.
+Change them only by an ADR; such a change is Tier 3.
+Never raise a budget to make a loop pass.
+
+CI measures each loop on its standard runner, as the check spec [feedback-budget](../../checks/feedback-budget.md) says.
+Local times are not evidence.
+
+- At 80% of a budget, the check opens one `budget` issue for that loop.
+  Work that issue before the loop reaches 100%.
+- Over the budget, the loop fails.
+  The change that crosses the budget brings the loop back under it, in the same pull request, even when older growth caused most of the time.
+  This failure is Introduced, not Pre-existing.
+- One run over the budget is a failure.
+  Do not rerun to get a pass.
+
+## Default: staying inside the Feedback budget
+
+- The hook checks only the staged files.
+- The Relevant tier selects affected tests from the dependency graph.
+- CI caches dependencies and build outputs.
+- CI shards tests across parallel jobs.
+- Each check runs once per commit; no two workflows run the same job.
+- A change to documents only skips application tests in CI.
+- Less code is less to check.
+  The check specs [no-dead-code](../../checks/no-dead-code.md) and [no-duplicate-code](../../checks/no-duplicate-code.md) stop code that adds time and no value.
+
 ## Mandatory: baseline and failure classes
 
 Run the Baseline tier before your first edit.

@@ -2,6 +2,7 @@
 
 **Invariant**:
 A pull request that deletes a test, skips a test, removes an assertion, adds a lint or type suppression, raises a test timeout, or changes CI or check configuration is at least Tier 3.
+Check configuration includes the Feedback budget file, the comment allow-list, and the duplicate-code thresholds.
 
 **Why**:
 An agent can make a failing check pass by weakening the check instead of fixing the code.

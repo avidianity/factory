@@ -116,6 +116,8 @@ Find runnable commands in <manifest file> and hook commands in <hook config file
 - A requested Code review pauses integration and publishing until approval.
 - Approval of a design is not permission to implement it.
 - The Tier of a change comes from the tier check, never from the agent.
+- Write no code comments outside the allow-list in `docs/checks/no-comments.md`.
+  Put the reason for code in a name, an ADR, a test name, or the commit message.
 - Never add agent attribution or co-author lines to commits, pull requests, issues, or comments.
 
 ## Communication

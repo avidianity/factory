@@ -14,6 +14,8 @@ The agent that bootstraps a project reads the project's own stack and fits the k
 - One rules file that every coding agent reads, with a short reading map to task pages.
 - Task pages for engineering, testing, git, review and merge, delegation, documentation, domain language, the issue tracker, runtime verification, corrections, and security.
 - A set of check specs, each built as a real check in the project's own stack and proved with a failing case and a passing case.
+- A time budget for the Git hook, the affected tests, and CI, so that checks stay fast as the code grows.
+- No code comments, no dead code, and no duplicate code, so that each fact has one home and there is less code to check.
 - A risk tier for every change, set by a check from the changed paths, never by the agent.
 - A review mode that fits the person who owns the project, from "I review every diff" to "I do not read code".
 - Light records that show what to enforce next and when autonomy is earned: corrections, evidence in each pull request, and escaped defects.

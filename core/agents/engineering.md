@@ -74,6 +74,27 @@ A slower path that removes a class of defects beats a faster path that needs a r
 - Do not add a suppression directive to silence a lint or type error.
   Fix the cause, or change the rule for the whole Project through an ADR.
 
+## Mandatory: no code comments
+
+Code holds no comments.
+A comment repeats a fact that has another home, and no check keeps it true, so it goes stale.
+
+Put each fact in its home instead:
+
+| Fact | Home |
+| ---- | ---- |
+| What the code does | Names: rename the function or variable until a comment would add nothing |
+| Why the code is shaped this way | An ADR for a decision; the commit message for one change |
+| Why a workaround exists | A fail-first test named after the upstream defect, so that removing the workaround fails it |
+| Work to do later | A tracker issue |
+| How to call a module | Its `HOW-TO.md` |
+| Old code | Version control; delete commented-out code |
+
+The check spec [no-comments](../../checks/no-comments.md) enforces this rule and holds the allow-list.
+The allow-list covers only lines that a tool reads: a shebang, a required license header, a language or build directive, and doc comments on the exported API of a published package.
+The check scans only the lines that a change adds.
+Existing comments go through their cleanup issue.
+
 ## Default: design
 
 - Make invalid states impossible to represent before you add a check that detects them.

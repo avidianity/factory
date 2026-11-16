@@ -98,6 +98,15 @@ Its issue carries the `escaped` label and links the pull request that caused it.
 **Known-red baseline**:
 The list of failing tests that a session records before its first edit.
 
+**Feedback loop**:
+One automatic run of checks that an agent or a human waits on before work continues.
+A Project has three: the Git hook, the Relevant tier of the check ladder, and the CI gate on each pull request.
+The full suite is not a Feedback loop, because it runs only when the Owner asks.
+
+**Feedback budget**:
+The maximum wall-clock time of one Feedback loop.
+_Avoid_: speed limit, SLA, performance budget.
+
 ## Verification
 
 **Verification contract**:
