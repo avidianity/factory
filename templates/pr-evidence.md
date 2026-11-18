@@ -34,6 +34,14 @@ Tier <n> from the tier check: <the rule that matched>.
 | <hook checks> | <passed> |
 | Merged-result check | <passed> |
 
+## Safety proof
+
+- Safety fact: <the one fact the change is safe because of>
+- Proof: <the script or test that ran the real code, and its decisive output; or "unproven">
+- `interrogate`: <none run below Tier 3; or each verified finding, its fix, and the clean rerun>
+
+<Or: "Not applicable: Tier 0 or 1.">
+
 ## Runtime evidence
 
 <For a user-visible change: the feature map, the verdict, the build revision, and links to traces or screenshots.>

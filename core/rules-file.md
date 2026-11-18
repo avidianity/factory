@@ -29,7 +29,8 @@ The rules file holds:
 
 - universal constraints that apply to every task in the Project;
 - the reading map: which task page to read for which kind of task;
-- the Review mode and the Kit version.
+- the Review mode and the Kit version;
+- the Agent skills block, which tells the pinned skills where the tracker, the triage labels, and the domain docs live.
 
 The rules file does not hold:
 
@@ -71,7 +72,7 @@ Each kind of guidance has one owner:
   A HOW-TO beats an older ADR on call shape.
 - ADRs in `docs/adr/`: decisions and their reasons.
   A newer accepted ADR that names what it supersedes beats the older one.
-- `CONTEXT.md` glossaries: domain language.
+- `GLOSSARY.md` glossaries: domain language.
 
 If code and a document disagree, find which one is stale; do not copy the code or pick the convenient rule.
 Surface a conflict you cannot resolve; do not invent policy.
@@ -82,6 +83,7 @@ Read a large reference page one section at a time.
 
 | Task | Always read | Read when you are about to |
 | ---- | ----------- | -------------------------- |
+| Plan, spec, or split work, design a change, or build or prove a Ticket | `docs/agents/planning.md` | `docs/agents/issue-tracker.md` before you publish a Spec, a Ticket, or a Map |
 | Write or review application code, config, or dependencies | `docs/agents/engineering.md` | <stack page> before you add, remove, or upgrade a dependency |
 | Implement behavior, fix a bug, run checks, or defer tests | `docs/agents/testing.md` | `docs/agents/verification.md` before you change a user-visible feature |
 | Commit, push, open or merge a pull request | `docs/agents/git.md`, `docs/agents/review-and-merge.md` | |
@@ -92,9 +94,26 @@ Read a large reference page one section at a time.
 | Touch secrets, credentials, production, or untrusted input | `docs/agents/security.md` | |
 | <Project-specific task> | <page> | <page> |
 
-Read a module's `CONTEXT.md` and `HOW-TO.md` before you edit an implementation file in its folder.
+Read a module's `GLOSSARY.md` and `HOW-TO.md` before you edit an implementation file in its folder.
 Use glossary terms as written.
 Find runnable commands in <manifest file> and hook commands in <hook config file>.
+
+## Agent skills
+
+### Issue tracker
+
+Issues, Specs, Tickets, and Maps live in <tracker>.
+See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Each triage role uses the label of the same name.
+See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+<Single-context: one `GLOSSARY.md` at the root | Multi-context: `GLOSSARY-MAP.md` at the root>, and ADRs in `docs/adr/`.
+See `docs/agents/domain.md`.
 
 ## Mandatory boundaries
 

@@ -10,8 +10,8 @@ The Owner talks to the Coordinator, not to each Worker.
 The Coordinator is one long-running session that:
 
 - receives the Owner's requests;
-- splits them into tasks;
-- starts a Worker for each task, with a Brief;
+- turns each request into a Spec and Tickets with the Owner, under the Project's `docs/agents/planning.md`, and gives code reading and research to Workers;
+- starts a Worker for each Ticket on the Frontier, with a Brief;
 - watches Workers and keeps them unblocked;
 - relays Decisions from the Owner to Workers;
 - releases Workers when they finish;
@@ -49,5 +49,5 @@ Rules for a Worker:
 ## Overseer (optional)
 
 An Overseer is a long-running Worker that owns one large stream of work, such as an epic, and starts its own Workers for it.
-Use one only when a stream is too big for the Coordinator to track task by task.
+Use one only when a stream is too big for the Coordinator to track Ticket by Ticket, such as a whole Spec under `implement-spec` or a Map.
 An Overseer follows the Coordinator rules for its own Workers, and the Worker rules toward the Coordinator.

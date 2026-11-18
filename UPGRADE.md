@@ -60,6 +60,8 @@ For each change from step 2:
 | Change conflicts with an ADR | Keep the ADR's choice; tell the Owner, and ask only when the reason in the ADR no longer holds |
 | Removed rule | Ask the Owner whether to remove it from the Project |
 | New check spec | Plan to build it, under step 6 of [BOOTSTRAP.md](./BOOTSTRAP.md) |
+| New or changed pinned skill | Plan to install it at the hash in [skills/README.md](./skills/README.md) |
+| Removed Kit skill | Ask the Owner whether to delete the Project's copy |
 
 Ask one question per message, with your recommendation.
 

@@ -11,6 +11,7 @@ Core holds the stack-free rules that every Project receives.
 | [testing.md](./agents/testing.md) | Behavior tests, the check ladder, the known-red baseline, failure classes, the stopping rule, flaky tests |
 | [git.md](./agents/git.md) | Authorization to commit and publish, branches, commits, the CI gate, the merged-result check, stacks |
 | [review-and-merge.md](./agents/review-and-merge.md) | Tiers, Review modes, Decisions, the merge contract, the Evidence bundle, the Risk summary |
+| [planning.md](./agents/planning.md) | The pipeline from idea to proof: Specs, Tickets, Design sketches, rigor by Expected Tier, proof that runs |
 | [delegation.md](./agents/delegation.md) | Subagents inside one Project: fresh sessions, isolated checkouts, exact handoffs, integration |
 | [documentation.md](./agents/documentation.md) | One home per fact, HOW-TO, ADR, research, size budget, writing style |
 | [domain.md](./agents/domain.md) | Glossaries and the context map |

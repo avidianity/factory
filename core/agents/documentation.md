@@ -15,7 +15,7 @@ When you change behavior, update the document that owns it in the same change.
 | How to call a module now | That module's `HOW-TO.md` |
 | A decision and its reasons | An ADR in `docs/adr/` |
 | The reason behind code | Never a code comment; see [engineering.md](./engineering.md#mandatory-no-code-comments) |
-| A domain term | The `CONTEXT.md` that owns it; see [domain.md](./domain.md) |
+| A domain term | The `GLOSSARY.md` that owns it; see [domain.md](./domain.md) |
 | A check's invariant | `docs/checks/<name>.md` |
 | A user-visible feature's verification | Its Feature map; see [verification.md](./verification.md) |
 | A finding from outside research | `docs/research/` |

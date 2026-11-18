@@ -8,7 +8,7 @@ Two pull requests can each pass alone and break the base together, for example b
 
 **Applies when**: always.
 
-**Runs in**: the merge step of the landing workflow, or the forge's merge queue when the Project uses one.
+**Runs in**: the merge step of a request to land, or the forge's merge queue when the Project uses one.
 
 **Failing case**:
 Two pull requests each add ADR 0042.
