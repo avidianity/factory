@@ -3,7 +3,7 @@
 This page names tools that fit the Kit's neutral roles.
 Each tool is an example; use the Project's or the Owner's own tool when it fills the role.
 
-Last checked: 2026-11-16.
+Last checked: 2026-11-19.
 
 ## Isolated checkouts
 
@@ -23,14 +23,15 @@ Role: install third-party skills and pin them in a lock file.
 
 | Tool | How |
 | ---- | --- |
-| `skills` CLI (npm package `skills`, version 1.8.1 checked) | `npx skills add <owner>/<repo> --skill <name> --agent <agent>` installs a skill and records it in `skills-lock.json` with a content hash. `npx skills experimental_install --frozen-lockfile` restores skills from the lock file and fails when the lock file would change. |
+| `skills` CLI (npm package `skills`, version 1.9.0 checked) | `npx skills add <owner>/<repo> --skill <name> --agent <agent>` installs a skill and records it in `skills-lock.json` with a content hash. `npx skills experimental_install --frozen-lockfile` restores skills from the lock file and fails when the lock file would change. |
 
 Check the installed version's `--help` before you use a flag; the restore command is marked experimental.
 
 Install the Kit's pinned skills, from the Project root:
 
 ```text
-npx skills add mattpocock/skills --skill grill-me --skill grill-with-docs --skill grilling --skill domain-modeling --skill wait-what --agent codex -y
+npx skills@1.9.0 add mattpocock/skills --skill grill-me --skill grilling --skill wait-what --skill grill-with-docs --skill domain-modeling --skill wayfinder --skill research --skill prototype --skill triage --skill to-spec --skill to-tickets --skill implement --skill implement-spec --skill tdd --skill codebase-design --skill code-review --agent codex -y
+npx skills@1.9.0 add backnotprop/pstack --skill architect --skill arena --skill sharpen --skill blast-radius --skill interrogate --skill in-your-own-words --skill how --skill why --skill unslop --skill show-me-your-work --skill principle-separate-before-serializing-shared-state --skill principle-redesign-from-first-principles --skill principle-prove-it-works --skill principle-laziness-protocol --skill principle-encode-lessons-in-structure --agent codex -y
 ```
 
 `--agent codex` installs into `.agents/skills`, the Kit's one skills folder.
@@ -39,7 +40,7 @@ The other agents read it through the links in [agents.md](./agents.md#the-one-so
 Restore them on a new machine, or in CI:
 
 ```text
-npx skills experimental_install --frozen-lockfile
+npx skills@1.9.0 experimental_install --frozen-lockfile --agent codex
 ```
 
 ## Terminal multiplexers

@@ -80,7 +80,7 @@ A Project builds each check spec as a real check in its own stack.
 The executable form of a check spec in a Project: a hook, a lint rule, a test, or a CI job.
 
 **Evidence bundle**:
-The proof that a change works, kept in the pull request body: the tier, the fail-first test, check results, and runtime evidence.
+The proof that a change works, kept in the pull request body: the tier, the fail-first test, check results, the Safety proof, and runtime evidence.
 
 **Fail-first test**:
 A test that fails on the code before the change and passes after it.
@@ -106,6 +106,40 @@ The full suite is not a Feedback loop, because it runs only when the Owner asks.
 **Feedback budget**:
 The maximum wall-clock time of one Feedback loop.
 _Avoid_: speed limit, SLA, performance budget.
+
+## Planning
+
+**Spec**:
+One tracker issue that describes a whole change from the user's side: the problem, the solution, user stories, implementation and testing decisions, and what is out of scope.
+_Avoid_: PRD, design doc.
+
+**Ticket**:
+One thin slice of a Spec, published as its own issue, that cuts through every layer and fits one fresh agent session.
+_Avoid_: subtask, story.
+
+**Blocking edge**:
+A link that says one Ticket cannot start until another Ticket is closed.
+
+**Frontier**:
+The open Tickets whose blockers are all closed and that nobody has claimed with an owner label or an assignee.
+
+**Map**:
+One tracker issue that charts work too big for one session, with decision tickets as its sub-issues.
+Each decision ticket settles a question, not a slice of code.
+
+**Expected Tier**:
+The Tier that a Ticket states from the tier map before code exists.
+The tier check on the final revision replaces it.
+
+**Design sketch**:
+The types, signatures, and module boundaries of a change, written as code with no bodies, before the implementation.
+_Avoid_: design doc, architecture doc.
+
+**Integration branch**:
+The one short-lived branch on which every Ticket that `implement-spec` builds merges, and which lands as one pull request.
+
+**Safety fact**:
+The one fact that a change is safe because of, proven by a run of the real code.
 
 ## Verification
 

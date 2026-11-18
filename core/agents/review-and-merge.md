@@ -89,6 +89,7 @@ An agent merges a Tier 0 to 2 change only when all of these are true:
 - [ ] No test, assertion, check, or CI job was removed, skipped, or weakened.
 - [ ] The diff has no unexplained file and no secret.
 - [ ] The Evidence bundle is complete in the pull request body.
+- [ ] The Prove steps that [planning.md](./planning.md#mandatory-rigor-by-expected-tier) requires for the Tier ran, and no verified finding is open.
 - [ ] The Project's autonomy gate is open; see [corrections.md](./corrections.md#mandatory-gates-read-the-records).
 
 When one box is not checked, the agent does not merge.
@@ -105,6 +106,7 @@ It holds:
 - the fail-first test: its name, and proof that it failed before the change;
 - the checks that ran, with results;
 - runtime evidence for a user-visible change, as [verification.md](./verification.md) says;
+- from Tier 2: the Safety fact and its proof, and from Tier 3: the verified `interrogate` findings and their fixes, as [planning.md](./planning.md#mandatory-proof-that-runs) says;
 - known gaps, deferred coverage, and failures classified as pre-existing or environmental.
 
 Remove secrets and personal data from evidence before you post it.
@@ -121,7 +123,7 @@ Give the Independent reviewer:
 - the check specs and task pages that apply;
 - the prompt in [methods/review-prompts.md](../../methods/review-prompts.md#independent-verifier).
 
-Do not give it the implementer's reasoning or conclusions.
+Do not give it the implementer's reasoning or conclusions, or the `interrogate` findings.
 Its verdict is PASS, FAIL, or INCONCLUSIVE, with the commands it ran.
 A FAIL or INCONCLUSIVE verdict blocks the merge.
 

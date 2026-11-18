@@ -3,7 +3,7 @@
 This page maps the tracker operations that the Kit uses to commands for each supported tracker.
 The default tracker is GitHub Issues.
 
-Last checked: 2026-11-16, against GitHub CLI 2.103.
+Last checked: 2026-11-19, against GitHub CLI 2.103.3.
 
 ## Operations
 
@@ -13,6 +13,13 @@ Last checked: 2026-11-16, against GitHub CLI 2.103.
 | Create an issue | `gh issue create --title "<title>" --body-file <file> --label <label>` |
 | Add a label | `gh issue edit <number> --add-label <label>` |
 | Read an issue | `gh issue view <number> --json title,body,labels,state,comments` |
+| Comment on an issue | `gh issue comment <number> --body-file <file>` |
+| Close an issue | Comment first, then `gh issue close <number>` |
+| Create a sub-issue | `gh issue create --parent <parent> --title "<title>" --body-file <file>` |
+| Add a Blocking edge | `gh issue create --blocked-by <number>,<number> ...`, or `gh issue edit <number> --add-blocked-by <blocker>` |
+| Count open blockers | `gh issue view <number> --json blockedBy --jq '[.blockedBy.nodes[] \| select(.state == "OPEN")] \| length'` |
+| List sub-issues | `gh issue view <parent> --json subIssues --jq '.subIssues.nodes[] \| {number, title, state}'` |
+| Claim a decision ticket | `gh issue edit <number> --add-assignee @me` |
 | Search issues | `gh issue list --label <label> --state open --json number,title` |
 | Link a pull request to an issue | `Closes #<number>` in the pull request body |
 | Open a pull request | `gh pr create --base <base> --head <branch> --title "<title>" --body-file <file>` |

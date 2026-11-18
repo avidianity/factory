@@ -1,6 +1,6 @@
 # Glossary template
 
-Save as `CONTEXT.md` at the root, or in the folder of the domain it covers.
+Save as `GLOSSARY.md` at the root, or in the folder of the domain it covers.
 
 ````markdown
 # <Domain name>

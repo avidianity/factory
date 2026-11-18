@@ -11,6 +11,7 @@ More Workers help only while the machine, the shared budgets, and the Owner's at
   Normal work never takes the reserved slot.
 - When the cap is reached, queue new tasks.
   Do not start more Workers.
+- Never run more Workers on one Spec than it has Tickets on the Frontier.
 
 ## Heavy jobs
 

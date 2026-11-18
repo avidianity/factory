@@ -4,14 +4,15 @@ This page applies before you add or change a domain term, or when a word in a ta
 
 ## Mandatory: glossaries
 
-The Project's domain language lives in glossaries named `CONTEXT.md`.
+The Project's domain language lives in glossaries named `GLOSSARY.md`.
 A glossary defines terms; it holds no implementation detail, no plan, and no decision.
 
-A Project with one domain has one `CONTEXT.md` at the root.
-A Project with several domains has `CONTEXT-MAP.md` at the root.
-It names each domain, where its `CONTEXT.md` lives, and which glossary owns each shared term.
+A Project with one domain has one `GLOSSARY.md` at the root.
+A Project with several domains has `GLOSSARY-MAP.md` at the root.
+It names each domain, where its `GLOSSARY.md` lives, and which glossary owns each shared term.
 
-Use [templates/context.md](../../templates/context.md) for the format.
+Use [templates/glossary.md](../../templates/glossary.md) for the format.
+The pinned `domain-modeling` skill reads and writes glossaries and ADRs under these names.
 
 ## Mandatory: create lazily
 
@@ -20,7 +21,7 @@ Create `docs/adr/` when the first ADR is needed.
 
 ## Mandatory: use the terms
 
-- Read the owning `CONTEXT.md` before you use or introduce a domain term.
+- Read the owning `GLOSSARY.md` before you use or introduce a domain term.
 - Use each term exactly as written, in code names, documents, issues, and messages.
 - Do not use a word that the glossary lists under "Avoid".
 

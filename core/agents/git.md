@@ -1,30 +1,34 @@
 # Git and workflow instructions
 
-This page applies when you commit, push, open or merge a pull request, or run a landing workflow.
+This page applies when you commit, push, open or merge a pull request, or build a Spec on an Integration branch.
 
 ## Mandatory: authorization and completion
 
 | Request | Authorized completion |
 | ------- | --------------------- |
 | Ordinary implementation request | Edits and checks only; commit and publishing need an explicit request |
-| Explicit `implement` | Implementation, checks, review, and a local commit |
-| Explicit `one-go` | Implementation, checks, review, commit, push, pull request, and merge |
-| Explicit `one-go-bg` | The same landing, owned by a background coordinator in its own checkout |
-| Explicit `one-go-parallel` | One pull request per task, each merged |
+| Explicit `implement` | Implementation, checks, review, and a local commit on the current branch |
+| Explicit `implement-spec` | Every Ticket of the Spec, merged into one Integration branch; push and a draft pull request when the tracker closes work through pull requests |
+| Explicit `wayfinder` | Research subagents push `research/<name>` branches; no pull request, no merge |
+| Explicit request to land, publish, or merge | Push, pull request, CI gate, merged-result check, and merge when [review-and-merge.md](./review-and-merge.md) allows it |
 
 Merge authority also depends on the Tier and the Review mode.
 [review-and-merge.md](./review-and-merge.md) decides who approves; this table decides what you may do without being asked again.
 
 A requested Code review pauses integration, push, and merge until approval.
 
-A push alone never completes a landing workflow.
-The workflow is complete when the pull request is merged, or when a blocker or a pending review is reported.
+A push alone never completes a request to land.
+Landing is complete when the pull request is merged, or when a blocker or a pending review is reported.
 
 ## Default: branches
 
 The Project has one long-lived branch, `<main branch>`.
 Each task gets one short-lived branch from the updated main branch and one pull request back to it.
 Name branches `<type>/<issue>-<slug>`, or `<type>/<slug>` without an issue.
+
+A Spec that `implement-spec` builds gets one Integration branch, named for the Spec issue.
+Each Ticket gets its own branch from the Integration branch, and merges back into it, never into `<main branch>`.
+The Integration branch is short-lived, and lands as one pull request to `<main branch>`.
 
 When the Project deploys from more than one long-lived branch, Bootstrap records the branch model in an ADR and replaces this section.
 

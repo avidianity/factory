@@ -1,7 +1,7 @@
 # evidence-bundle
 
 **Invariant**:
-Every pull request body has the sections of the Evidence bundle template: Tier, Task, Fail-first test, Checks, Runtime evidence, and Gaps.
+Every pull request body has the sections of the Evidence bundle template: Tier, Task, Fail-first test, Checks, Safety proof, Runtime evidence, and Gaps.
 Each section has content, or the words "Not applicable" with a reason.
 
 **Why**:

@@ -25,7 +25,7 @@ It works for a new, empty Project and for an existing Project with code, rules, 
 
 Read these Kit files whole, in this order:
 
-1. [CONTEXT.md](./CONTEXT.md)
+1. [GLOSSARY.md](./GLOSSARY.md)
 2. [core/rules-file.md](./core/rules-file.md)
 3. Every page in [core/agents/](./core/agents/)
 4. [checks/README.md](./checks/README.md)
@@ -124,8 +124,8 @@ Write these, fitted to the Project:
 | `docs/agents/*.md`                         | [core/agents/](./core/agents/), with Project commands and paths filled in |
 | `docs/checks/*.md`                         | The check specs that the Project builds, each with its "Implemented by" line |
 | `docs/adr/`                                | One ADR for the Review mode; one per stack-convention conflict; one per rejected Kit rule |
-| `CONTEXT.md`                               | [templates/context.md](./templates/context.md), seeded from the Purpose answer |
-| Skills folder                              | [skills/README.md](./skills/README.md)                               |
+| `GLOSSARY.md`                              | [templates/glossary.md](./templates/glossary.md), seeded from the Purpose answer |
+| Skills folder and `skills-lock.json`       | [skills/README.md](./skills/README.md): copy the Kit's own skills, install every pinned skill |
 | Tracker labels                             | [core/agents/issue-tracker.md](./core/agents/issue-tracker.md#mandatory-labels) |
 
 Rules for this step:
@@ -139,6 +139,11 @@ Rules for this step:
   [core/agents/verification.md](./core/agents/verification.md) creates it with the first user-visible feature.
 - In an existing Project, keep every existing rule that the Owner kept.
   Put it where the Kit layout says it belongs.
+- In an existing Project with `CONTEXT.md` glossaries, move each one to `GLOSSARY.md` with a Git move, and update every link to it.
+- Install the pinned skills with the commands in [adapters/tools.md](./adapters/tools.md#skills-installer).
+  Compare each hash in `skills-lock.json` with [skills/README.md](./skills/README.md).
+  A different hash means the upstream skill changed: read the change, and ask the Owner before you keep it.
+- Fill the Agent skills block in `.rules` and the operations section of `docs/agents/issue-tracker.md`, because the pinned skills read them to find the tracker.
 
 ## Step 6: build the checks
 
@@ -170,6 +175,7 @@ When the Owner chooses a higher budget for now, record it in an ADR with the dat
    - "What must you do before your first edit?"
    - "What do you do after two failed attempts to fix one test?"
    - "Where does a new domain term go?"
+   - "The Owner approved an idea. How does it become work, and which Ticket do you start first?"
 3. Fix each file that led to a wrong answer, and ask again.
 4. Run every check once on the whole Project.
    Record any existing failure as known red; do not fix it in the Bootstrap change.

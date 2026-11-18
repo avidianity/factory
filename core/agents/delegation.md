@@ -11,7 +11,9 @@ Permission to delegate covers the stages described here, not unrelated work.
 
 The session that delegates is the parent.
 The parent owns integration, verification, and publishing.
-Subagents never push, open pull requests, or merge on their own.
+The parent may give one merge into a local Integration branch to a fresh merger subagent, and then verifies the result.
+Subagents never push, open pull requests, or merge a pull request.
+The one exception is a research subagent of `wayfinder`: it pushes its own `research/<name>` branch, which never merges and gets no pull request.
 
 ## Mandatory: fresh sessions
 
@@ -47,22 +49,25 @@ Apply snapshots only inside the new checkout.
 Verify that the snapshot matches, for example with a file list and content hashes.
 `git diff` alone leaves out new files.
 
-## Default: the implementor and reviewer pipeline
+## Default: the implementer and reviewer pipeline
 
 For delegated implementation:
 
-1. An implementor writes the change and its tests, and commits locally.
+1. An implementer writes the change and its tests, and commits locally.
 2. Two fresh read-only reviewers check it in parallel:
    - **Standards**: does it follow the Project's rules and task pages?
    - **Spec**: does it do what the task asked, and nothing else?
-3. Each fix goes to a fresh implementor, and the result goes to fresh reviewers.
+3. Each fix goes to a fresh implementer, and the result goes to fresh reviewers.
 
-Under `one-go-parallel`, each task goes to one general subagent that implements, tests, reviews both axes, and commits, unless the Owner asks for the full pipeline.
+Under `implement-spec`, each Frontier Ticket goes to one fresh implementer subagent, which builds it test-first and merges the Integration branch tip into its own branch.
+One `code-review` of the whole Integration branch follows the last Ticket.
+[planning.md](./planning.md#default-build-a-whole-spec) says when to use it.
 
-## Mandatory: stacked tasks
+## Mandatory: blocked tasks
 
-When tasks build on each other, dispatch the bottom task first.
-Dispatch the next task when the one below reports a clean result, with that branch tip as its baseline.
+Dispatch only tasks on the Frontier.
+Dispatch a blocked task when every task that blocks it reports a clean result.
+Its baseline is the Integration branch tip after those merges, or the tip of the one branch it builds on.
 
 ## Mandatory: requested Code review
 
