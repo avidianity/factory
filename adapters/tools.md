@@ -43,6 +43,16 @@ Restore them on a new machine, or in CI:
 npx skills@1.9.0 experimental_install --frozen-lockfile --agent codex
 ```
 
+## JSON compactor
+
+Role: convert JSON that a command prints into a compact text form, so that an agent reads it with fewer tokens.
+
+| Tool | How |
+| ---- | --- |
+| TOON CLI (npm package `@toon-format/cli`, version 4.4.0 checked) | Install with `npm install -g @toon-format/cli@4.4.0`. Pipe output into it: `<command> \| toon`. It detects JSON input and prints TOON. `toon --stats` also prints the token counts of both forms. |
+
+The TOON CLI exits with status 1 and prints `Failed to parse JSON` when its input is not JSON.
+
 ## Terminal multiplexers
 
 Role: run many agent sessions side by side, and let a coordinator read and send to them.

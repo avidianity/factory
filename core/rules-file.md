@@ -127,7 +127,10 @@ See `docs/agents/domain.md`.
 - Before the first task of a session, update the main checkout: fetch, then fast-forward pull when the branch tracks a remote.
   When the working tree is dirty or the branch has diverged, leave it and report why.
 - Treat your training data as stale for every version-specific fact outside this repository.
-  Verify each such fact as `docs/agents/engineering.md` says before you write code on it.
+  Verify each such fact as `docs/agents/engineering.md` says before you write code on it or recommend it.
+- Pipe every command that prints JSON for you to read through `<JSON compactor command>`, because the compact form costs fewer tokens.
+  Read raw JSON only when a program consumes it or you need its exact bytes.
+  When the compactor fails, run the command again without it.
 - Run <baseline test command> once before the first edit as the known-red baseline.
 - Fix only the failures this change introduced.
   Stop after two failed fix attempts on one root cause; record it, report it, and continue.

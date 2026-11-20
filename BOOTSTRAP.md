@@ -143,6 +143,8 @@ Rules for this step:
 - Install the pinned skills with the commands in [adapters/tools.md](./adapters/tools.md#skills-installer).
   Compare each hash in `skills-lock.json` with [skills/README.md](./skills/README.md).
   A different hash means the upstream skill changed: read the change, and ask the Owner before you keep it.
+- Fill the JSON compactor command in `.rules` from [adapters/tools.md](./adapters/tools.md#json-compactor), or from the Owner's own tool for that role.
+  Run it once on a JSON sample before you write it in.
 - Fill the Agent skills block in `.rules` and the operations section of `docs/agents/issue-tracker.md`, because the pinned skills read them to find the tracker.
 
 ## Step 6: build the checks
