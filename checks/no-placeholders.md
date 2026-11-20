@@ -1,7 +1,7 @@
 # no-placeholders
 
 **Invariant**:
-No file in `.rules`, `docs/agents/`, or `docs/checks/` holds a Kit placeholder: text in angle brackets that starts with a lowercase word, such as `<main branch>`.
+No file in `.rules`, `docs/owner-guide.md`, `docs/agents/`, or `docs/checks/` holds a Kit placeholder: text in angle brackets that starts with a lowercase word, such as `<main branch>`.
 Code samples inside fenced blocks are exempt only when the block is marked as a template.
 
 **Why**:

@@ -84,7 +84,7 @@ The Owner approves the plan before you change anything.
 
 ## Step 7: prove the setup
 
-Start a fresh agent session in the Project, and ask it the five questions from [BOOTSTRAP.md](./BOOTSTRAP.md#step-7-prove-the-setup).
+Start a fresh agent session in the Project, and ask it the questions from [BOOTSTRAP.md](./BOOTSTRAP.md#step-7-prove-the-setup).
 Add one question for each changed rule: "What does the Project require for <topic>?"
 Fix the guidance until every answer is right.
 
@@ -94,6 +94,7 @@ Fix the guidance until every answer is right.
    Changes to guidance and checks are Tier 3.
 2. Fill the Evidence bundle, and list each changed check with its proof.
 3. Write a Risk summary when the Owner does not read code.
-4. Report the pull request URL, and every open item.
+4. When the Owner guide changed, tell the Owner which skills or steps are new, with the exact message to type for each.
+5. Report the pull request URL, and every open item.
 
 Done when the Owner has the pull request, or a list of what blocks it.

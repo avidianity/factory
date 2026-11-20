@@ -17,6 +17,7 @@ When you change behavior, update the document that owns it in the same change.
 | The reason behind code | Never a code comment; see [engineering.md](./engineering.md#mandatory-no-code-comments) |
 | A domain term | The `GLOSSARY.md` that owns it; see [domain.md](./domain.md) |
 | A check's invariant | `docs/checks/<name>.md` |
+| Which skill the Owner starts, what to type, and what to approve | `docs/owner-guide.md` |
 | A user-visible feature's verification | Its Feature map; see [verification.md](./verification.md) |
 | A finding from outside research | `docs/research/` |
 | Release notes of a published package | That package's changelog |
@@ -87,3 +88,5 @@ When you change agent guidance:
 - Do not add a rule for a mistake that happened once.
   A repeated mistake becomes a Correction; see [corrections.md](./corrections.md).
 - Keep `.rules` for universal constraints only.
+- When you add, remove, or rename a skill, or change what the Owner types or approves, update `docs/owner-guide.md` in the same change.
+  The check spec [skills-in-owner-guide](../../checks/skills-in-owner-guide.md) catches a skill that the page does not name.

@@ -26,7 +26,7 @@ It works for a new, empty Project and for an existing Project with code, rules, 
 Read these Kit files whole, in this order:
 
 1. [GLOSSARY.md](./GLOSSARY.md)
-2. [core/rules-file.md](./core/rules-file.md)
+2. [core/rules-file.md](./core/rules-file.md) and [core/owner-guide.md](./core/owner-guide.md)
 3. Every page in [core/agents/](./core/agents/)
 4. [checks/README.md](./checks/README.md)
 5. [skills/README.md](./skills/README.md)
@@ -121,6 +121,7 @@ Write these, fitted to the Project:
 | Project path                               | Source in the Kit                                                    |
 | ------------------------------------------ | -------------------------------------------------------------------- |
 | Rules file, with agent file names as links | [core/rules-file.md](./core/rules-file.md), [adapters/agents.md](./adapters/agents.md) |
+| `docs/owner-guide.md`                      | [core/owner-guide.md](./core/owner-guide.md), with the agents, Review mode, and Project skills filled in |
 | `docs/agents/*.md`                         | [core/agents/](./core/agents/), with Project commands and paths filled in |
 | `docs/checks/*.md`                         | The check specs that the Project builds, each with its "Implemented by" line |
 | `docs/adr/`                                | One ADR for the Review mode; one per stack-convention conflict; one per rejected Kit rule |
@@ -178,6 +179,7 @@ When the Owner chooses a higher budget for now, record it in an ADR with the dat
    - "What do you do after two failed attempts to fix one test?"
    - "Where does a new domain term go?"
    - "The Owner approved an idea. How does it become work, and which Ticket do you start first?"
+   - "The Owner has a new feature idea. What exactly does the Owner type first?"
 3. Fix each file that led to a wrong answer, and ask again.
 4. Run every check once on the whole Project.
    Record any existing failure as known red; do not fix it in the Bootstrap change.
@@ -192,7 +194,8 @@ When the Owner chooses a higher budget for now, record it in an ADR with the dat
    - what the Project now has, in plain words;
    - which checks run, and where;
    - the open items and the known-red list;
-   - what to do next: usually the first real task.
-4. After the merge, create the tracker labels, then the `cleanup` issues from the plan.
+   - what to do next: usually the first real task, with the exact message to type from `docs/owner-guide.md`.
+4. Show the Owner `docs/owner-guide.md`, and offer to walk through its first step on that first task.
+5. After the merge, create the tracker labels, then the `cleanup` issues from the plan.
 
 Bootstrap is done when the pull request is merged and the labels exist.

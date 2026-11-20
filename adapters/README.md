@@ -5,7 +5,7 @@ Every other page uses neutral words, so that the Kit outlives any one tool.
 
 | Page | Covers |
 | ---- | ------ |
-| [agents.md](./agents.md) | Where each coding agent reads rules, skills, tool servers, and subagents |
+| [agents.md](./agents.md) | Where each coding agent reads rules, skills, tool servers, and subagents, and how the Owner starts a skill |
 | [trackers.md](./trackers.md) | Issue tracker operations for each supported tracker |
 | [tools.md](./tools.md) | Isolated checkouts, the skills installer, the JSON compactor, terminal multiplexers, and other helpers |
 

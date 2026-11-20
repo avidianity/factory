@@ -18,6 +18,22 @@ Last checked: 2026-11-14, against Claude Code 2.1.325, Codex 0.169.0, and OpenCo
 
 Sources: each agent's official docs on memory or instructions, skills, MCP, and subagents.
 
+## How the Owner starts a skill
+
+Last checked: 2026-11-21, against Claude Code 2.1.329, Codex 0.169.0, and OpenCode 2.2.1.
+
+| Kind | Claude Code | Codex | OpenCode |
+| ---- | ----------- | ----- | -------- |
+| Start a skill | Type `/<skill>`; the request follows on the same line, as in `/implement <Ticket link>` | Type `$<skill>` anywhere in the message; the rest of the message goes with it | Type `@<skill>` in the message; the rest of the message goes with it |
+| List skills | `/skills`, or type `/` | `/skills`, or type `$` | Type `@` |
+| Honors `disable-model-invocation: true` | Yes: the model cannot start the skill, and the Owner can | No: Codex reads only `name` and `description`; the model can still start the skill | Yes, as an alias of `metadata.opencode/autoinvoke: false` |
+
+In Codex, `policy.allow_implicit_invocation: false` in a skill's `agents/openai.yaml` hides it from the model.
+Do not add that file to a pinned skill; a pinned skill stays as the lock file records it.
+The rule in [core/agents/planning.md](../core/agents/planning.md#mandatory-how-agents-run-pinned-skills) still forbids an agent to start such a skill on its own.
+
+Sources: <https://code.claude.com/docs/en/skills.md>, <https://developers.openai.com/codex/skills.md> and the Codex source at tag `rust-v0.169.0`, and <https://opencode.ai/docs/skills.md>.
+
 ## The one-source layout
 
 | Kind | Source | Links or generated files |

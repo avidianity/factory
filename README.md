@@ -19,6 +19,7 @@ The agent that bootstraps a project reads the project's own stack and fits the k
 - No code comments, no dead code, and no duplicate code, so that each fact has one home and there is less code to check.
 - A risk tier for every change, set by a check from the changed paths, never by the agent.
 - A review mode that fits the person who owns the project, from "I review every diff" to "I do not read code".
+- An Owner guide: a tutorial for the person who owns the project, with the skill to start in each situation and the exact message to type.
 - Light records that show what to enforce next and when autonomy is earned: corrections, evidence in each pull request, and escaped defects.
 
 ## Start
@@ -32,6 +33,10 @@ Read BOOTSTRAP.md there and follow it.
 
 The agent works for new and existing projects.
 In an existing project it never overwrites; it writes an adoption plan and asks you about each conflict.
+
+After Bootstrap, read `docs/owner-guide.md` in your project.
+It tells you which skill to start for each kind of work, what to type, and what you approve.
+[core/owner-guide.md](./core/owner-guide.md) is its template.
 
 To bring a bootstrapped project up to a newer kit version:
 
@@ -47,7 +52,7 @@ Read UPGRADE.md there and follow it.
 | [BOOTSTRAP.md](./BOOTSTRAP.md) | The playbook an agent follows to set up a project                                      |
 | [UPGRADE.md](./UPGRADE.md)   | The playbook an agent follows to apply newer kit changes to a project                    |
 | [GLOSSARY.md](./GLOSSARY.md) | The kit's glossary                                                                       |
-| [core/](./core/)             | The rules file template and the task pages a project receives                            |
+| [core/](./core/)             | The rules file template, the Owner guide template, and the task pages a project receives |
 | [checks/](./checks/)         | Check specs: the invariant, a failing case, a passing case, where it runs, its error text |
 | [templates/](./templates/)   | Task contract, correction, ADR, glossary, HOW-TO, feature map, evidence, risk summary     |
 | [methods/](./methods/)       | Reference methods: trust layers, tests by defect class, formal methods, review prompts   |

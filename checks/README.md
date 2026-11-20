@@ -35,6 +35,7 @@ A check that a hook runs must also run in CI, because a hook can be skipped on a
 | ---- | ------------ |
 | [agent-entry-links](./agent-entry-links.md) | Always |
 | [skills-link](./skills-link.md) | The Project has skills |
+| [skills-in-owner-guide](./skills-in-owner-guide.md) | The Project has skills |
 | [tool-servers-render](./tool-servers-render.md) | The Project configures agent tool servers |
 | [doc-size](./doc-size.md) | Always |
 | [doc-links](./doc-links.md) | Always |

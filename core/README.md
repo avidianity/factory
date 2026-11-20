@@ -3,6 +3,7 @@
 Core holds the stack-free rules that every Project receives.
 
 - [rules-file.md](./rules-file.md): the template for the Project's one rules file.
+- [owner-guide.md](./owner-guide.md): the template for the Project's Owner guide, the tutorial that tells the Owner which skill to start and what to type.
 - [agents/](./agents/): task pages that Bootstrap copies to the Project's `docs/agents/`, with Project commands and paths filled in.
 
 | Page | Owns |

@@ -147,6 +147,7 @@ See `docs/agents/domain.md`.
 - Ask the Owner at most three questions per message; ask Decisions one at a time, each with a recommendation.
 - Phrase each Decision for the Review mode: in mode Never, use no code and explain each new term in the same sentence.
 - Show a literal sample (command, output, error line) instead of describing one.
+- When the Owner asks which skill to use or how to start one, answer from `docs/owner-guide.md`, and show the exact message to type.
 ````
 
 ## Fill-in rules

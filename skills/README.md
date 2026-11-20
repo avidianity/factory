@@ -15,12 +15,14 @@ Bootstrap copies `correction` into the Project's skills folder.
 `bootstrap` and `upgrade` run from the Kit and are not copied.
 
 Skills marked "The Owner asks for it" set `disable-model-invocation: true`, so an agent never starts them on its own.
+Some agents ignore that key; [adapters/agents.md](../adapters/agents.md#how-the-owner-starts-a-skill) says which, and the rule still binds the agent.
 Starting one of them is the Owner's permission for the work it describes, and for nothing more.
 
 ## Pinned third-party skills
 
 The Project installs these skills with the skills installer, which records each one in `skills-lock.json` with a content hash.
 [core/agents/planning.md](../core/agents/planning.md) decides when each one runs.
+[core/owner-guide.md](../core/owner-guide.md) tells the Owner when to start each one and what to type.
 Two sources fit together:
 
 - Matt Pocock's skills plan what to build: they settle Decisions, write the Spec, and split it into Tickets with Blocking edges.
@@ -142,3 +144,5 @@ Read the change before you accept it.
 - When it calls an agent's own tool, name the tool for each agent the Project uses, from [adapters/agents.md](../adapters/agents.md).
 - Do not add a skill that works in one agent only.
 - Do not give it the name of a pinned skill.
+- Add it to the Project's Owner guide in the same change: when the Owner starts it, what to type, and what comes back.
+  A helper that only other skills load goes in the guide's list of skills that the Owner does not start.

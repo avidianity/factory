@@ -61,6 +61,11 @@ The Project's setting for who does Code review in each tier: **Always**, **Criti
 An agent session that did not see the implementation, ideally on a model from a different vendor, which checks a diff against its spec and its check specs.
 _Avoid_: second agent, reviewer agent.
 
+**Owner guide**:
+The Project page `docs/owner-guide.md` that tells the Owner which skill to start in each situation, what to type, what comes back, and what to approve.
+Agents read `.rules`; the Owner reads the Owner guide.
+_Avoid_: tutorial, manual, user guide.
+
 **Risk summary**:
 A plain-language page for the Owner: what changes for people, what can go wrong, how to undo it, and the evidence.
 It contains no code.

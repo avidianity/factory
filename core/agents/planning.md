@@ -6,7 +6,8 @@ Each skill owns its own steps; this page decides when each one runs and what it 
 
 ## Mandatory: how agents run pinned skills
 
-Most pinned skills set `disable-model-invocation: true`, so an agent cannot start them on its own.
+Most pinned skills set `disable-model-invocation: true`.
+Never start such a skill on your own, even in an agent that ignores that key.
 The Owner starts a stage by asking for it, or by naming its skill.
 That request permits every skill that this page assigns to the stage and to the Expected Tier.
 To run such a skill, read its `SKILL.md` in the Project's skills folder and follow it.

@@ -39,6 +39,19 @@ jobs:
           done < <(find . -name '*.md' -not -path './.git/*' -print0)
           exit $status
 
+      - name: Check skills in the Owner guide
+        run: |
+          status=0
+          pinned=$(awk '/^### From /{on=1; next} /^### /{on=0} on' skills/README.md | grep -oE '^\| `[a-z0-9-]+` \|' | tr -d '|` ')
+          copied=$(grep -oE '^Bootstrap copies `[a-z0-9-]+`' skills/README.md | grep -oE '`[a-z0-9-]+`' | tr -d '`')
+          for skill in $pinned $copied; do
+            if ! grep -q -- "\`$skill\`" core/owner-guide.md; then
+              echo "::error file=core/owner-guide.md::$skill is not in core/owner-guide.md. Add when the Owner starts it, what to type, and what comes back, or list it as a helper."
+              status=1
+            fi
+          done
+          exit $status
+
       - name: Check denied words
         env:
           DENYLIST_PATTERNS: ${{ secrets.DENYLIST_PATTERNS }}
