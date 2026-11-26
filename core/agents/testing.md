@@ -22,6 +22,37 @@ Test behavior, not implementation.
 A good test fails when a rule that a user can see breaks, not when a function is renamed.
 [methods/testing-by-defect-class.md](../../methods/testing-by-defect-class.md) helps you choose the kind of test.
 
+## Mandatory: what does not earn a test
+
+Never add automated tests for files that carry no application behavior or that a lower layer already validates:
+
+- declarative tool and build configuration files (linter, formatter, commit-message, compiler, bundler, database-tool, and container configs); validate them by running the tool or type checker;
+- low-churn or one-off repository and development scripts; verify them by running the script when it changes;
+- type-only declarations, static constants, generated files, and thin framework wiring; types, the compiler, and boundary tests already cover them;
+- tautology tests that mirror configuration values or repeat implementation lines as assertions.
+
+Keep automated self-tests for custom check scripts (only when a script holds non-trivial policy logic) in a separate check-test path that runs only when check scripts change, never inside the application Feedback loops.
+The check spec [test-scope](../../checks/test-scope.md) enforces the declared application test paths and rejects config or script tests in the application suite.
+
+## Mandatory: coverage scope
+
+Coverage metrics are optional; a Project adopts coverage floors, complexity-coverage scores, or mutation targets only when they protect real risk.
+When enabled, collect coverage only on files that carry application behavior, using an explicit include allow-list inside the declared application source paths.
+Never collect coverage repository-wide by default.
+
+Always exclude from coverage, complexity-coverage, and mutation targets:
+
+- root, tooling, build, database-tool, and container configuration files;
+- repository, build, and development scripts;
+- generated code, schema artifacts, and database migrations;
+- type-only declaration files, static constant tables, and pure re-export barrels;
+- thin entry points and framework bootstrap wiring;
+- test files, fixtures, fakes, and test helpers.
+
+Never write a filler test to satisfy a coverage floor on a file that belongs on this exclusion list.
+Fix the coverage scope configuration instead; that change is Tier 3 under [test-oracle-guard](../../checks/test-oracle-guard.md).
+The check spec [test-scope](../../checks/test-scope.md) checks that coverage and mutation configurations stay inside the declared application source paths.
+
 ## Mandatory: the check ladder
 
 | Tier | When | Command |
@@ -72,6 +103,8 @@ Local times are not evidence.
 - CI shards tests across parallel jobs.
 - Each check runs once per commit; no two workflows run the same job.
 - A change to documents only skips application tests in CI.
+- Keep declarative config files and repository scripts out of the application test suite, as [test-scope](../../checks/test-scope.md) requires.
+- Run custom check-script tests only when check scripts change, outside the application Relevant tier.
 - Less code is less to check.
   The check specs [no-dead-code](../../checks/no-dead-code.md) and [no-duplicate-code](../../checks/no-duplicate-code.md) stop code that adds time and no value.
 
@@ -135,6 +168,7 @@ These are forbidden without an Owner Decision:
 - moving code to a path that a check does not scan.
 
 The check spec [test-oracle-guard](../../checks/test-oracle-guard.md) raises the Tier of a change that edits tests, check configuration, or CI.
+Removing forbidden config, script, or tautology tests is an Owner-approved cleanup, not test weakening; open a dedicated cleanup pull request so the Owner approves the removal at Tier 3.
 
 ## Mandatory exception: deferred tests
 

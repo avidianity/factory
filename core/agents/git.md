@@ -50,7 +50,8 @@ Never delete a long-lived branch.
 - Use Conventional Commits: `<type>(<scope>): <summary>`.
   Allowed scopes: `<scope list>`.
 - Never add co-author lines or agent attribution.
-- Put a quality fix that you found along the way in its own commit, before the feature commit.
+- Keep unrelated fixes out of this branch; if you directly encounter a real bug outside the task, note it in one short line at handoff instead of bundling an unrequested commit.
+  When an in-scope prerequisite cleanup is unavoidable, isolate it in its own commit before the main commit.
 - For issue work, put `Closes #<issue>` in the feature commit body and the pull request body.
 - Never skip a hook.
   Fix the failure, then commit again.

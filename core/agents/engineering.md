@@ -2,6 +2,19 @@
 
 This page applies when you write or review application code, configuration, or dependencies.
 
+## Mandatory: context and scope discipline
+
+Read and search only for the facts the current request needs.
+Extra reading and speculative exploration bloat session context, raise cost, and invite scope creep.
+
+- Open only the files, domain docs, and symbols directly tied to the task.
+- Use narrow searches (exact paths, symbols, or folders) instead of broad repository scans.
+- Stop searching as soon as you have enough evidence to act safely.
+- Execute only the requested scope; never add unrequested refactors, cleanups, or "above and beyond" edits.
+- Do not audit unrelated files for extra problems.
+- When you directly encounter a real bug, security risk, or broken invariant while doing the task, do not fix it inline and do not derail the task.
+  Finish the requested task cleanly and flag the finding in one short line at the end (file, line, and symptom) so the Owner decides whether to act.
+
 ## Mandatory: external facts
 
 Treat your training data as stale for every version-specific fact outside this repository.

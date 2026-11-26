@@ -27,6 +27,8 @@ Every check spec has these sections:
 4. Build the check where the spec says it runs.
 5. Run it on every failing case, and confirm that it fails with the error text or a clear equivalent.
 6. Run it on every passing case, including false-positive traps, and confirm that it passes.
+   For a configured tool (such as a linter, formatter, commit-message checker, or secret scanner), run the tool on the sample inputs and record the result; never commit a unit test file for its configuration file.
+   For a custom check script whose policy logic merits automated self-tests, put those tests in the separate check-test path that [test-scope](./test-scope.md) defines, never in the application test suite.
 7. Write `docs/checks/<name>.md` in the Project: the invariant, then "Implemented by", the command, and where it runs.
 
 A check that you did not prove both ways is not done.
@@ -50,6 +52,7 @@ Bootstrap builds every Day-1 core spec whose condition holds for the Project.
 | [skills-in-owner-guide](./skills-in-owner-guide.md) | The Project has skills |
 | [tool-servers-render](./tool-servers-render.md) | The Project configures agent tool servers |
 | [doc-size](./doc-size.md) | Always |
+| [doc-index](./doc-index.md) | Always |
 | [doc-links](./doc-links.md) | Always |
 | [no-placeholders](./no-placeholders.md) | Always |
 | [doc-style](./doc-style.md) | Always |
@@ -57,6 +60,7 @@ Bootstrap builds every Day-1 core spec whose condition holds for the Project.
 | [commit-message](./commit-message.md) | Always |
 | [dependency-pinning](./dependency-pinning.md) | The Project has dependencies |
 | [behavior-has-test](./behavior-has-test.md) | The Project has application code |
+| [test-scope](./test-scope.md) | The Project has application code |
 | [no-suppressions](./no-suppressions.md) | The Project has a linter or type checker |
 
 ## Earned specs

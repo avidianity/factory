@@ -15,26 +15,29 @@ Never edit an agent entry file directly, because it is a link.
 
 ## Size
 
-Keep `.rules` under 32,000 bytes.
-Some agents cut project instructions off near that size, and an agent that does not see a rule cannot follow it.
-The same budget applies to each page that `.rules` tells agents to always read.
-The check spec [doc-size](../checks/doc-size.md) enforces it.
+Keep `.rules` under 8,000 bytes.
+Agents load `.rules` on every session, so every extra paragraph wastes context on every task.
+Keep each `docs/agents/*.md` task page and each domain `RULES.md` under 16,000 bytes, and every other active documentation file under 32,000 bytes.
+The check spec [doc-size](../checks/doc-size.md) enforces these tiered budgets, and [doc-index](../checks/doc-index.md) keeps every split file reachable from an index.
 
-When a page grows past the budget, split it by trigger or move detail to reference pages.
-Never raise the budget.
+When a page nears its budget, move domain detail into its domain folder or split the page into an index and topic guides.
+Never raise a budget.
 
 ## What belongs in it
 
-The rules file holds:
+The rules file holds generalized project-wide information only:
 
-- universal constraints that apply to every task in the Project;
-- the reading map: which task page to read for which kind of task;
+- project identity in one or two sentences;
+- universal non-negotiable boundaries that apply to every task in the Project (one or two lines each);
+- the routing map: which task page or domain doc to read for which trigger;
 - the Review mode, the Standing Decisions ADR link, and the Kit version;
 - the Agent skills block, which tells the pinned skills where the tracker, the triage labels, and the domain docs live.
 
-The rules file does not hold:
+The rules file never holds:
 
-- feature-specific rules; those go in the task page or the module's own `HOW-TO.md`;
+- domain-specific or feature-specific rules and boundary exceptions; those go in that domain's `RULES.md`;
+- how-to contracts or multi-step procedures; those go in `docs/agents/` or the domain's `HOW-TO.md`;
+- current-state facts about subsystems or deployments; those go in `MAP.md` or the domain's `STATE.md`;
 - explanations, history, or examples; those go in ADRs and reference pages;
 - personal preferences of one developer; those go in that developer's own agent config.
 
@@ -56,7 +59,7 @@ Review mode: <Always | Critical only | Never> ([ADR <number>](docs/adr/<file>.md
 Standing Decisions: <none yet | [ADR <number>](docs/adr/<file>.md)>.
 
 `.rules` is the one rules file; <agent entry files> are links to it; edit `.rules` only.
-Keep `.rules` and every always-read page under 32,000 bytes.
+Keep `.rules` under 8,000 bytes, task pages and domain `RULES.md` under 16,000 bytes, and all other active docs under 32,000 bytes.
 Skills live in `<skills folder>`; <other skills folders> link to it.
 
 ## Authority and reading
@@ -67,10 +70,12 @@ Unlabelled requirements in the pages below are mandatory; examples are not extra
 
 Each kind of guidance has one owner:
 
-- `.rules`: universal constraints and the reading map.
-- `docs/agents/`: task-specific agent instructions.
-- `HOW-TO.md` pages: current call contracts of a module.
+- `.rules`: generalized project boundaries and the routing map only.
+- `docs/agents/`: cross-cutting task-specific agent instructions.
+- Domain `RULES.md`: domain-specific agent constraints and boundary exceptions.
+- Domain `HOW-TO.md` (and `how-to/`): current call contracts and how-to guides.
   A HOW-TO beats an older ADR on call shape.
+- `MAP.md` and domain `STATE.md` (and `state/`): current system topology and current state of a domain.
 - ADRs in `docs/adr/`: decisions and their reasons.
   A newer accepted ADR that names what it supersedes beats the older one.
 - `GLOSSARY.md` glossaries: domain language.
@@ -78,24 +83,26 @@ Each kind of guidance has one owner:
 If code and a document disagree, find which one is stale; do not copy the code or pick the convenient rule.
 Surface a conflict you cannot resolve; do not invent policy.
 
-Instructions load every time; reference loads on a trigger.
-Read a reference page when you are about to take the action that triggers it, not before.
-Read a large reference page one section at a time.
+Instructions load on task match; reference loads on a trigger.
+Read only the task page(s) and files the current request needs, never unrelated pages for general context.
+For a narrow operational request (such as committing, pushing, or running one command), read only its matching task page and skip unrelated docs, maps, and source files.
 
 | Task | Always read | Read when you are about to |
 | ---- | ----------- | -------------------------- |
 | Plan, spec, or split work, design a change, or build or prove a Ticket | `docs/agents/planning.md` | `docs/agents/issue-tracker.md` before you publish a Spec, a Ticket, or a Map |
-| Write or review application code, config, or dependencies | `docs/agents/engineering.md` | <stack page> before you add, remove, or upgrade a dependency |
+| Write or review application code, config, or dependencies | `docs/agents/engineering.md` | <stack page> before you add, remove, or upgrade a dependency; `MAP.md` before you cross domain boundaries |
 | Implement behavior, fix a bug, run checks, or defer tests | `docs/agents/testing.md` | `docs/agents/verification.md` before you change a user-visible feature |
-| Commit, push, open or merge a pull request | `docs/agents/git.md`, `docs/agents/review-and-merge.md` | |
+| Commit, push, open or merge a pull request | `docs/agents/git.md` | `docs/agents/review-and-merge.md` before you open or merge a pull request |
 | Delegate, review subagent work, or hand work off | `docs/agents/delegation.md` | |
-| Write docs, ADRs, or glossary terms | `docs/agents/documentation.md` | `docs/agents/domain.md` before you add or change a term |
+| Write or update rules (`.rules`, `docs/agents/`, domain `RULES.md`), docs, `MAP.md`, `STATE.md`, `HOW-TO.md`, ADRs, or glossary terms | `docs/agents/documentation.md` | `docs/agents/domain.md` before you add or change a term |
 | Create or update issues or pull requests | `docs/agents/issue-tracker.md` | |
 | Handle a repeated agent mistake or an escaped defect | `docs/agents/corrections.md` | |
 | Touch secrets, credentials, production, or untrusted input | `docs/agents/security.md` | |
 | <Project-specific task> | <page> | <page> |
 
-Read a module's `GLOSSARY.md` and `HOW-TO.md` before you edit an implementation file in its folder.
+Read a domain's or module's `RULES.md`, `GLOSSARY.md`, `HOW-TO.md`, and `STATE.md` (when present) before you edit files in its folder.
+When `HOW-TO.md` or `STATE.md` indexes topic guides in `how-to/` or `state/`, read only the guides for the area you edit.
+Open ADRs in `docs/adr/` by slug match only when you change or contradict a decision; skip `archive/` unless the task is about history.
 Use glossary terms as written.
 Find runnable commands in <manifest file> and hook commands in <hook config file>.
 
@@ -120,27 +127,20 @@ See `docs/agents/domain.md`.
 
 <Project-specific boundaries from the Owner's answers: data isolation, forbidden actions, production rules.>
 
-- Never skip Git hooks, by flag, environment variable, or configuration.
-  Fix a hook failure; a request to finish quickly does not waive hooks.
-- Start a persistent server, worker, or watcher only with the Owner's permission.
-  Use an existing one when available.
-  Short-lived servers that automated tests own and stop are allowed.
-- Before the first task of a session, update the main checkout: fetch, then fast-forward pull when the branch tracks a remote.
-  When the working tree is dirty or the branch has diverged, leave it and report why.
-- Treat your training data as stale for every version-specific fact outside this repository.
-  Verify each such fact as `docs/agents/engineering.md` says before you write code on it or recommend it.
-- Pipe every command that prints JSON for you to read through `<JSON compactor command>`, because the compact form costs fewer tokens.
-  Read raw JSON only when a program consumes it or you need its exact bytes.
-  When the compactor fails, run the command again without it.
-- Run <baseline test command> once before the first edit as the known-red baseline.
-- Fix only the failures this change introduced.
-  Stop after two failed fix attempts on one root cause; record it, report it, and continue.
-- Work directly unless the Owner asks for delegation or invokes a skill whose workflow delegates.
-- A requested Code review pauses integration and publishing until approval.
-- Approval of a design is not permission to implement it.
-- The Tier of a change comes from the tier check on the protected base revision, never from the agent.
+- Never skip Git hooks; fix hook failures instead.
+- Start a persistent server, worker, or watcher only with Owner permission; short-lived test-owned servers are allowed.
+- Before the first code or branch task, fast-forward the main checkout when clean and tracking a remote; otherwise leave it and report why.
+- Read and search only what the current request needs; stop searching once you have enough facts to act, and never bundle unrequested changes.
+- Do not hunt for unrelated bugs; if you directly hit a real bug or risk, finish the requested task untouched and flag it in one short line at the end.
+- Verify version-specific external facts per `docs/agents/engineering.md` before writing code or recommending them.
+- Pipe JSON output for agent reading through `<JSON compactor command>`; fall back to raw JSON on failure or when a program consumes it.
+- Run `<baseline test command>` once before the first edit, fix only introduced failures, and stop after two failed attempts on one root cause.
+- Work directly unless the Owner asks for delegation or starts a delegating skill.
+- A requested Code review pauses integration and publishing until approval; design approval is not permission to build.
+- The Tier comes from the tier check on the protected base revision, never from the agent.
 - Write no code comments outside the allow-list in `docs/checks/no-comments.md`.
-  Put the reason for code in a name, an ADR, a test name, or the commit message; use `INVARIANT:`, `SAFETY:`, or `WORKAROUND(<ref>):` only for non-obvious local constraints.
+- Add tests and collect coverage only on declared application paths in `docs/checks/test-scope.md`; never test or measure coverage on tool configs or low-churn scripts.
+- Keep `.rules` under 8,000 bytes for generalized rules and routing only; read `docs/agents/documentation.md` before changing any rule or doc.
 - Never add agent attribution or co-author lines to commits, pull requests, issues, or comments.
 
 ## Communication

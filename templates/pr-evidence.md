@@ -25,6 +25,7 @@ Tier <n> from the tier check: <the rule that matched>.
 - After the change: passed
 
 <Or: "No behavior change: <reason>.">
+<Or: "Not applicable: tooling config or repository script (verified by `<tool or script command>`).">
 
 ## Checks
 

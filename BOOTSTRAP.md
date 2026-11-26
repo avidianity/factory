@@ -45,7 +45,8 @@ Find and write down:
 
 - **Shape**: empty, or existing code.
 - **Stack**: languages, runtimes, frameworks, package managers, databases, and their installed versions, from manifests, lockfiles, image tags, and `--version` output.
-- **Stack conventions**: where the stack expects tests, config, migrations, and generated files to live; how it formats and lints; what it treats as the entry point.
+- **Stack conventions**: where the stack expects application source code, tests, config, repository scripts, migrations, and generated files to live; how it formats and lints; what it treats as the entry point.
+  Record the Project's declared application source paths and application test paths so checks and the test runner exclude root configs, tooling configs, and repository scripts.
   Read the docs that ship with the installed versions first.
 - **Existing agent rules**: every rules file, skill folder, and agent config that [adapters/agents.md](./adapters/agents.md) lists.
 - **Existing checks**: hooks, lint and format config, type checking, test commands, CI jobs, branch protection.
@@ -139,10 +140,12 @@ Rules for this step:
 - Put the Kit version and the Bootstrap date in the rules file, where [core/rules-file.md](./core/rules-file.md) shows.
   Leave `Standing Decisions` as `none yet` until the Owner creates a Standing Decisions ADR.
 - Configure forge ownership rules for protected CI workflows, check scripts, policy files, and `.rules`, as [trusted-ci](./checks/trusted-ci.md) requires.
+- Configure the Project's test runner to discover only the declared application test paths, and configure any coverage, complexity-coverage, or mutation tool with an explicit allow-list inside declared application source paths while excluding root configs, tooling configs, repository scripts, generated files, migrations, type-only files, thin entry points, and test helpers; see [test-scope](./checks/test-scope.md).
 - Do not create the Verification contract now.
   [core/agents/verification.md](./core/agents/verification.md) creates it with the first user-visible feature.
 - In an existing Project, keep every existing rule that the Owner kept.
-  Put it where the Kit layout says it belongs.
+  Put generalized project rules in `.rules` (under 8,000 bytes), cross-cutting workflow rules in `docs/agents/`, and domain-specific rules or current-state docs in domain folders (`RULES.md`, `STATE.md`, `HOW-TO.md`) linked from `MAP.md` or `.rules`.
+- Create `MAP.md` and domain folders lazily when the Project has multiple domains or active subsystems; do not create empty placeholder docs at Bootstrap.
 - In an existing Project with `CONTEXT.md` glossaries, move each one to `GLOSSARY.md` with a Git move, and update every link to it.
 - Install the pinned skills with the commands in [adapters/tools.md](./adapters/tools.md#skills-installer).
   Compare each hash in `skills-lock.json` with [skills/README.md](./skills/README.md).
@@ -166,6 +169,8 @@ For each check spec to build:
    It must fail, with the spec's error text or a clear equivalent.
 4. Run the check on every passing case in the spec, including false-positive traps.
    It must pass.
+   For a configured tool (such as a linter, formatter, commit-message checker, or secret scanner), prove it by running the tool on those samples; never commit a unit test file for its configuration file.
+   For a custom check script that merits automated self-tests, place those tests in the separate check-test path defined by [test-scope](./checks/test-scope.md), never in the application test suite.
 5. Write the Project's `docs/checks/<name>.md`: the spec's invariant, then "Implemented by", the command that runs it, and where it runs.
 
 A check that you cannot prove both ways is not done.

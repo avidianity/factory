@@ -19,7 +19,7 @@ When CI runs check scripts from the pull request head, an agent can edit a workf
 **Runs in**: CI, on every pull request event, backed by forge branch protection and code-ownership rules.
 
 **Protected files**:
-The Project keeps one list of protected policy and CI paths in its forge ownership rules: CI workflows, check scripts, the tier map, the Feedback budget file, check allow-lists, the Standing Decisions ADR, and `.rules` with its task pages.
+The Project keeps one list of protected policy and CI paths in its forge ownership rules: CI workflows, check scripts, the tier map, the Feedback budget file, check allow-lists, the Standing Decisions ADR, and `.rules` with its task pages and domain `RULES.md` files.
 
 **Failing case**:
 A pull request modifies a CI workflow or the tier map to downgrade an authentication change to Tier 1, and CI executes the modified script from the pull request head or lets the pull request merge without non-agent Owner approval.

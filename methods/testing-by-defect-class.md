@@ -19,6 +19,20 @@ Choose a test by the kind of defect it must catch, not by fashion.
 | Performance | Profiling and benchmark replay | Cold and warm runs, load, release build, data volume | A long-running performance suite |
 | Prompt injection | A test with untrusted content | A hostile file or tool result tells the agent to leak data | Tool restrictions at the policy level |
 | Configuration or deployment | Canary release, smoke tests, rollback rehearsal | A missing setting, a stale migration, a failed provider | Release verification and alerts |
+| Invalid tool or build config | The tool itself, its schema, and the type checker | Run the tool on one failing sample when changing the config | CI execution of the tool, never a config unit test |
+
+## When no automated test is the right tool
+
+Not every file in a repository earns an automated test.
+Adding tests for files that a lower layer already checks slows down every Feedback loop and adds maintenance drag without catching product bugs.
+
+- **Declarative tool and build configs** (linter, formatter, commit-message, compiler, bundler, database-tool, and container configs): run the tool or type checker; never commit unit tests that mirror config values.
+- **Low-churn or one-off repository and development scripts**: verify by running the script when it changes.
+  Only custom check scripts with non-trivial policy logic earn automated self-tests, and those live in a separate check-test path outside the application suite; see [test-scope](../checks/test-scope.md).
+- **Type-only files, constants, generated files, and thin wiring**: let the type system, compiler, and real boundary tests cover them.
+
+Apply the same boundary to coverage, complexity-coverage, and mutation tools: collect only an explicit allow-list of application behavior paths and exclude configs, scripts, generated files, migrations, type-only files, thin entry points, and test helpers.
+Never add filler tests to raise coverage on excluded files; fix the tool's scope instead.
 
 ## Mutation testing
 
@@ -49,6 +63,7 @@ Read results by kind:
 - **Uncovered**: no test runs that path.
 
 A score of 100 percent is not the goal.
+Scope mutation testing strictly to high-risk application domain code, excluding config files, scripts, and glue code.
 Kill the high-risk survivors first.
 One killed authorization mutant is worth more than five points of score in glue code.
 

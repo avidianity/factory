@@ -39,6 +39,7 @@ Two agents on one database, port, or credential set can corrupt each other's res
 Every dispatch includes:
 
 - the scope, the expected output, the task or spec, and the allowed edits;
+- the exact files, folders, and task pages the subagent needs, so it does not scan unrelated parts of the repository;
 - the exact baseline commit;
 - a snapshot of relevant uncommitted work, including untracked files and deletions;
 - earlier findings, accepted and rejected feedback, and checks already run;

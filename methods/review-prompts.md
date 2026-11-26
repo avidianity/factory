@@ -18,9 +18,13 @@ Inputs: the task contract, the diff, and the Evidence bundle.
 3. Check that each fail-first test fails without the change and passes with it.
 4. Look for changes that weaken checks: deleted or skipped tests, changed expected
    values, suppressions, raised timeouts, or CI edits.
-5. Look for scope creep: files changed outside the task's allowed paths.
+5. Look for scope creep: files changed outside the task's allowed paths, or
+   unrequested refactors and cleanups bundled into the diff.
 6. For a user-visible change, check that the evidence includes the stored effect,
    not only a screenshot, and that it comes from this revision.
+7. Reject low-value or out-of-scope tests: automated tests for declarative tool
+   configs, low-churn repository scripts, constants, generated files, or
+   tautologies that mirror config values.
 
 Verdict: PASS, FAIL, or INCONCLUSIVE.
 For FAIL, list each finding with file, line, and a concrete failing scenario.

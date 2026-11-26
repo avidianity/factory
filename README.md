@@ -11,7 +11,7 @@ The agent that bootstraps a project reads the project's own stack and fits the k
 
 ## What a project gets
 
-- One rules file that every coding agent reads, with a short reading map to task pages.
+- One thin rules file (under 8,000 bytes) that holds generalized project rules and a routing map to task pages and domain folders (`RULES.md`, `HOW-TO.md`, `STATE.md`, `GLOSSARY.md`).
 - A planning pipeline from idea to proof: the Owner's Decisions become a Spec, the Spec becomes Tickets that agents can build in parallel, and each change carries proof that a run produced, scaled to its risk.
 - Task pages for planning, engineering, testing, git, review and merge, delegation, documentation, domain language, the issue tracker, runtime verification, corrections, and security.
 - A set of Day-1 core and Earned check specs, each built as a real check with the project's own tools and proved with failing and passing cases.
