@@ -59,7 +59,7 @@ For each change from step 2:
 | Changed rule, the Project changed its copy | Ask the Owner: keep the Project's version, take the Kit's, or merge |
 | Change conflicts with an ADR | Keep the ADR's choice; tell the Owner, and ask only when the reason in the ADR no longer holds |
 | Removed rule | Ask the Owner whether to remove it from the Project |
-| New check spec | Plan to build it, under step 6 of [BOOTSTRAP.md](./BOOTSTRAP.md) |
+| New check spec | Plan to build Day-1 core specs under step 6 of [BOOTSTRAP.md](./BOOTSTRAP.md); ask the Owner whether to adopt or defer new Earned specs |
 | New or changed pinned skill | Plan to install it at the hash in [skills/README.md](./skills/README.md) |
 | Removed Kit skill | Ask the Owner whether to delete the Project's copy |
 

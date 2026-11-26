@@ -34,14 +34,33 @@ These are not Decisions:
 
 - names, file layout, and code structure inside the rules;
 - which test to write, and how;
-- how to fix a failure that this change introduced.
+- how to fix a failure that this change introduced;
+- choices explicitly covered by an active Standing Decision.
+
+### Standing Decisions
+
+A **Standing Decision** is an Owner-approved boundary for routine choices, recorded in one ADR linked from `.rules`.
+It starts empty at Bootstrap; the Owner adds entries only after seeing which recurring choices are safe.
+
+Each entry states:
+
+- what the agent may decide alone;
+- concrete scope and numeric or policy limits;
+- an expiry date, a review condition, or "until changed".
+
+Before asking the Owner a routine Decision, check the Standing Decisions ADR.
+When an entry covers the choice, follow it and cite the entry in the pull request body or decision log.
+Editing the Standing Decisions ADR is always Tier 3; an agent never changes it alone.
+
+Tier 3 and Tier 4 concerns are never eligible for Standing Decisions.
+Authentication, authorization, isolation between users or tenants, money or billing, secrets, destructive migrations, CI, checks, branch protection, and production access always require an explicit Owner Decision.
 
 ## Mandatory: Tiers
 
 Every change has a Tier from 0 to 4.
-The tier check computes the Tier from the changed paths and the change's effects.
+The tier check computes the Tier deterministically from the changed paths, reverse dependencies, and diff signals against the protected base revision.
 An agent never sets or lowers the Tier.
-The check spec [risk-tier](../../checks/risk-tier.md) defines the check.
+The check specs [risk-tier](../../checks/risk-tier.md) and [trusted-ci](../../checks/trusted-ci.md) define the check and its trust boundary.
 
 | Tier | Meaning | Examples |
 | ---- | ------- | -------- |
@@ -82,7 +101,7 @@ The Owner still makes every Decision and approves every risky change, from a pla
 
 An agent merges a Tier 0 to 2 change only when all of these are true:
 
-- [ ] The tier check ran on the final revision and gave Tier 0, 1, or 2.
+- [ ] The tier check ran from the protected base revision on the final revision and gave Tier 0, 1, or 2.
 - [ ] Every required CI job passed on the exact revision that merges.
 - [ ] The merged-result check in [git.md](./git.md#mandatory-check-the-merged-result-before-a-merge) passed.
 - [ ] A behavior change has a fail-first test.
@@ -90,7 +109,7 @@ An agent merges a Tier 0 to 2 change only when all of these are true:
 - [ ] The diff has no unexplained file and no secret.
 - [ ] The Evidence bundle is complete in the pull request body.
 - [ ] The Prove steps that [planning.md](./planning.md#mandatory-rigor-by-expected-tier) requires for the Tier ran, and no verified finding is open.
-- [ ] The Project's autonomy gate is open; see [corrections.md](./corrections.md#mandatory-gates-read-the-records).
+- [ ] The Project's active autonomy gate permits agent merges at this Tier; see [corrections.md](./corrections.md#mandatory-gates-read-the-records).
 
 When one box is not checked, the agent does not merge.
 It reports what is missing.

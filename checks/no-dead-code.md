@@ -14,7 +14,8 @@ Dead code costs build time, test time, and reading time, and returns nothing.
 A change often kills code in a file that it does not touch, by deleting the last caller.
 A check that reads only the changed lines misses that.
 
-**Applies when**: the Project has application code.
+**Applies when**: the Project has application code and a reachability or dead-code tool (Earned spec).
+Build this check with a compiler, linter, or syntax-tree reachability tool, never custom regular expressions over raw source text.
 
 **Runs in**: CI.
 

@@ -28,6 +28,7 @@ Agents follow `.rules` and `docs/agents/`; you do not need to read them.
 
 - You make every Decision: a choice about product behavior, data, cost, security, or architecture.
   An agent asks; it never answers its own questions.
+  You may pre-approve bounded routine choices in one Standing Decisions ADR; Tier 3 and Tier 4 choices are never delegated.
 - Agents find facts, write the code, run the checks, and prove that the change works.
 - The Review mode is <Always | Critical only | Never>.
   <One sentence from the Review mode table for this mode: what the Owner reads before a merge.>
@@ -134,7 +135,8 @@ For one Ticket:
 
 This request is your permission to build.
 The agent runs the design and proof skills that each Ticket's Expected Tier needs, so you do not start them yourself.
-When a Ticket needs a new Decision, the agent stops and asks you.
+When a Ticket needs a new Decision outside your Standing Decisions ADR, the agent stops and asks you.
+For Tier 0 to 2 work, you may also give one upfront go-ahead from Spec through Build (for example "Write the Spec, split it, and build it if every Ticket stays Tier 2 or lower"); the agent still stops if any Ticket rises to Tier 3 or needs a new Decision.
 
 ### 5. Land
 
@@ -188,10 +190,10 @@ The skills above load these helpers themselves, so you never start them:
 
 ## What you approve, and when
 
-- Each Decision, during `grill-with-docs`, `wayfinder`, or a build that stops to ask.
-- The Ticket breakdown, before `to-tickets` publishes it.
-- The start of each build, by starting `implement` or `implement-spec`.
-- Each merge that the Review mode gives to you.
+- Each Decision outside your Standing Decisions ADR, during `grill-with-docs`, `wayfinder`, or a build that stops to ask.
+- Any change to your Standing Decisions ADR (always Tier 3).
+- The Ticket breakdown before `to-tickets` publishes it, and the start of each build by starting `implement` or `implement-spec` (or one upfront go-ahead for Tier 0 to 2 Spec through Build).
+- Each merge that the Review mode and active autonomy gate give to you.
 - Each Tier 4 operation, which you start or watch.
 
 ## Setup on your machine

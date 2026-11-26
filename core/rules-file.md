@@ -29,7 +29,7 @@ The rules file holds:
 
 - universal constraints that apply to every task in the Project;
 - the reading map: which task page to read for which kind of task;
-- the Review mode and the Kit version;
+- the Review mode, the Standing Decisions ADR link, and the Kit version;
 - the Agent skills block, which tells the pinned skills where the tracker, the triage labels, and the domain docs live.
 
 The rules file does not hold:
@@ -53,6 +53,7 @@ Delete a line only when the Owner removed that rule, and record the removal in a
 
 Kit: avidianity/factory <Kit version>, bootstrapped <YYYY-MM-DD>.
 Review mode: <Always | Critical only | Never> ([ADR <number>](docs/adr/<file>.md)).
+Standing Decisions: <none yet | [ADR <number>](docs/adr/<file>.md)>.
 
 `.rules` is the one rules file; <agent entry files> are links to it; edit `.rules` only.
 Keep `.rules` and every always-read page under 32,000 bytes.
@@ -137,9 +138,9 @@ See `docs/agents/domain.md`.
 - Work directly unless the Owner asks for delegation or invokes a skill whose workflow delegates.
 - A requested Code review pauses integration and publishing until approval.
 - Approval of a design is not permission to implement it.
-- The Tier of a change comes from the tier check, never from the agent.
+- The Tier of a change comes from the tier check on the protected base revision, never from the agent.
 - Write no code comments outside the allow-list in `docs/checks/no-comments.md`.
-  Put the reason for code in a name, an ADR, a test name, or the commit message.
+  Put the reason for code in a name, an ADR, a test name, or the commit message; use `INVARIANT:`, `SAFETY:`, or `WORKAROUND(<ref>):` only for non-obvious local constraints.
 - Never add agent attribution or co-author lines to commits, pull requests, issues, or comments.
 
 ## Communication

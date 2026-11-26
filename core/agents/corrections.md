@@ -59,16 +59,56 @@ When someone finds a bug after its change merged:
 
 ## Mandatory: gates read the records
 
-Autonomy grows only when the records show it is safe.
-The Project's autonomy gate is open when all of these are true:
+Agent autonomy grows in steps, and every Project starts at Gate 0.
+A Project never auto-merges on merge zero; each gate opens only when the records prove the previous step is safe.
 
-- No `escaped` bug of severity S1 or S2 from an agent-merged change in the last 30 merges.
-- No `escaped` bug from a Tier 1 or 2 agent-merged change in the last 30 merges, or each one has a merged Correction.
-- No open Correction for a failure class that touches a Tier 3 or 4 area.
+### Gate 0: assisted
 
-When the gate closes, agent merges stop for every Tier.
-The Owner approves each merge until the gate opens again.
-The Owner can change the thresholds with an ADR.
+Agents propose changes.
+The Owner approves and merges every pull request.
+
+Move to Gate 1 when all of these hold:
+
+- Every Day-1 check is built and proven both ways.
+- The tier check labels every pull request from the protected base revision.
+- 20 Owner-approved agent pull requests have merged, each with a complete Evidence bundle.
+- No open Correction exists for a failure class that touches a Tier 3 or 4 area.
+
+### Gate 1: agents merge Tier 0 and 1
+
+Agents merge Tier 0 and Tier 1 changes alone under the merge contract.
+The Owner approves Tier 2 and above.
+
+Move to Gate 2 when all of these hold:
+
+- 30 agent merges at Tier 0 and 1 have landed.
+- No `escaped` bug of severity S1 or S2 came from them.
+- Every `escaped` bug of severity S3 or S4 has a Correction or a merged check.
+- No open Correction exists for a failure class that touches a Tier 3 or 4 area.
+
+### Gate 2: agents merge Tier 2 with an Independent reviewer
+
+Agents merge Tier 2 changes after an Independent reviewer passes them.
+The Owner approves Tier 3 and 4.
+
+Move to Gate 3 when all of these hold:
+
+- 30 agent merges at Tier 2 have landed.
+- No `escaped` bug of severity S1 or S2 came from them.
+- Every `escaped` bug of severity S3 or S4 has a Correction or a merged check.
+- The Independent reviewer caught at least one real problem in a planted test.
+
+### Gate 3: steady state
+
+Agents merge Tier 0 to 2 alone under the merge contract.
+Tier 3 and Tier 4 always need the approval that [review-and-merge.md](./review-and-merge.md) requires.
+
+### Gate limits and regression
+
+The Review mode caps these gates: under Review mode `Always`, the Project stays at Gate 0 whatever the records say.
+An open Correction for a failure class touching a Tier 3 or 4 area, or an S1 or S2 `escaped` bug from an agent-merged change in the last 30 merges, closes agent merges and drops the Project to Gate 0 at once.
+When dropped to Gate 0, the Project climbs again with fresh counts.
+The Owner can change these thresholds with an ADR.
 
 ## Mandatory: stop triggers
 

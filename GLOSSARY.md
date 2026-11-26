@@ -48,6 +48,10 @@ A choice about product behavior, data, cost, security, or architecture.
 The Owner always makes it, in every Review mode.
 The agent gives a recommendation and phrases the choice so that the Owner can judge it.
 
+**Standing Decision**:
+An Owner-approved boundary for routine choices, recorded in one ADR linked from `.rules`, with explicit scope, limits, and expiry.
+Tier 3 and Tier 4 concerns never become Standing Decisions.
+
 **Code review**:
 Reading a diff to judge it.
 A human or an Independent reviewer does it, as the Review mode says.
@@ -74,12 +78,12 @@ It contains no code.
 
 **Tier**:
 The risk class of a change, from 0 (mechanical) to 4 (critical).
-A check computes it from the changed paths; the agent never sets or lowers it.
+A check computes it deterministically from changed paths, reverse dependencies, and diff signals against the protected base revision; the agent never sets or lowers it.
 _Avoid_: severity, priority.
 
 **Check spec**:
-A document in [checks/](./checks/) that states one invariant, one input that must fail, one input that must pass, where the check runs, and the error text.
-A Project builds each check spec as a real check in its own stack.
+A document in [checks/](./checks/) that states one invariant, failing cases, passing cases, where the check runs, and the error text.
+A Project builds every Day-1 core check spec at Bootstrap, and builds Earned check specs when a suitable tool exists and the Owner opts in, or on a Correction.
 
 **Check**:
 The executable form of a check spec in a Project: a hook, a lint rule, a test, or a CI job.

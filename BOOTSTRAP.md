@@ -85,6 +85,7 @@ Skip a question when the Survey already answers it beyond doubt, and tell the Ow
    Ask only when the Project deploys from more than one branch.
 7. **Risk areas.**
    Show the tier map draft from the Survey in plain words, for example "changes to sign-in and payments need your approval".
+   When the Project's stack lacks a static dependency graph, include shared foundation folders as Tier 3 by default.
    Ask the Owner to add or remove areas.
 8. **Forbidden actions.**
    "Is there anything an agent must never do here?"
@@ -106,10 +107,10 @@ The plan lists:
 - Each file that Bootstrap will create, with one line about its purpose.
 - Each existing file that Bootstrap will move or merge, and where its content goes.
   Existing rules move into the Project rules file; they are not dropped.
-- Each check that Bootstrap will build, and each check spec that an existing check already covers.
+- Each Day-1 core check that Bootstrap will build, each Earned check (opted-in or deferred), and each check spec that an existing check already covers.
 - Each conflict and the Owner's answer.
 - Each label that Bootstrap will create in the tracker.
-- For an existing Project, one `cleanup` issue per module that holds comments, dead code, or duplicate code.
+- For an existing Project, one `cleanup` issue per module that holds bare comments, dead code, or in-module duplicate code when those Earned checks are adopted.
 
 Get the Owner's approval of the plan before Step 5.
 
@@ -136,6 +137,8 @@ Rules for this step:
 - Fill in commands only after you run them once and see them work.
   Write UNKNOWN and tell the Owner when a command does not exist yet.
 - Put the Kit version and the Bootstrap date in the rules file, where [core/rules-file.md](./core/rules-file.md) shows.
+  Leave `Standing Decisions` as `none yet` until the Owner creates a Standing Decisions ADR.
+- Configure forge ownership rules for protected CI workflows, check scripts, policy files, and `.rules`, as [trusted-ci](./checks/trusted-ci.md) requires.
 - Do not create the Verification contract now.
   [core/agents/verification.md](./core/agents/verification.md) creates it with the first user-visible feature.
 - In an existing Project, keep every existing rule that the Owner kept.
@@ -150,20 +153,25 @@ Rules for this step:
 
 ## Step 6: build the checks
 
-For each check spec in the plan:
+Build every Day-1 core check spec in the plan, plus any Earned check spec that the Owner opted into.
+Leave deferred Earned specs unbuilt until a Correction or scale proves the need.
+
+For each check spec to build:
 
 1. Read the check spec.
 2. Build the check in the Project's own stack, where the spec says it runs: a hook, CI, or both.
-3. Run the check on the spec's failing case.
+   For syntax-aware checks, use a compiler, linter, or syntax-tree parser; never write a custom regular-expression script over raw source text.
+   Configure policy-enforcing CI checks to execute and read policy files from the protected base revision, as [trusted-ci](./checks/trusted-ci.md) requires.
+3. Run the check on every failing case in the spec.
    It must fail, with the spec's error text or a clear equivalent.
-4. Run the check on the spec's passing case.
+4. Run the check on every passing case in the spec, including false-positive traps.
    It must pass.
 5. Write the Project's `docs/checks/<name>.md`: the spec's invariant, then "Implemented by", the command that runs it, and where it runs.
 
 A check that you cannot prove both ways is not done.
-After two failed attempts on one check, record it in the plan as open, tell the Owner, and continue with the next check.
+After two failed attempts on one check, or when no suitable tool exists for an Earned check, record it in the plan as open, tell the Owner, and continue with the next check.
 
-When you build [feedback-budget](./checks/feedback-budget.md), measure each Feedback loop once.
+When the plan includes [feedback-budget](./checks/feedback-budget.md), measure each Feedback loop once.
 A loop that is already over its budget is a conflict for the Owner.
 Recommend making the loop fast before the check turns on.
 When the Owner chooses a higher budget for now, record it in an ADR with the date to return to the Default, and open a `budget` issue.

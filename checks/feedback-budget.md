@@ -10,7 +10,7 @@ When a loop takes more than its budget, the check fails.
 Code grows with every change, and each Feedback loop grows with it.
 A loop that gets a little slower each week stops nobody until agents and humans wait minutes for each answer, or skip the loop.
 
-**Applies when**: always.
+**Applies when**: the Project has automated checks or tests with measurable CI runtime (Earned spec).
 Skip a loop that the Project does not have.
 
 **Runs in**: CI, on every pull request.

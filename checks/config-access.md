@@ -6,7 +6,7 @@ Only the Project's configuration modules read environment variables or other pro
 **Why**:
 Configuration read all over the code skips validation and hides which settings exist.
 
-**Applies when**: the Project has application code.
+**Applies when**: the Project has application code (Earned spec).
 
 **Runs in**: hook and CI, as a lint or source rule.
 
