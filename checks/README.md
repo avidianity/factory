@@ -77,6 +77,7 @@ Otherwise, build it when a Correction or codebase growth proves the need.
 | [feedback-budget](./feedback-budget.md) | The Project has automated checks or tests with measurable CI runtime |
 | [config-access](./config-access.md) | The Project has application code |
 | [no-network-in-tests](./no-network-in-tests.md) | The Project has automated tests |
+| [doc-freshness](./doc-freshness.md) | The Project has application code and domain docs (`HOW-TO.md`, `STATE.md`, or `MAP.md`) |
 
 ## Adding a check spec to a Project
 

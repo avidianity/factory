@@ -61,11 +61,14 @@ When someone finds a bug after its change merged:
 
 Agent autonomy grows in steps, and every Project starts at Gate 0.
 A Project never auto-merges on merge zero; each gate opens only when the records prove the previous step is safe.
+Enforce the active gate mechanically through forge permissions and a protected policy file read from the protected base revision, never through agent self-restraint alone.
+Changes to the active gate file are Tier 3 under [trusted-ci](../../checks/trusted-ci.md) and [test-oracle-guard](../../checks/test-oracle-guard.md).
 
 ### Gate 0: assisted
 
 Agents propose changes.
 The Owner approves and merges every pull request.
+Enforce Gate 0 at the forge: give agent credentials no merge permission, or require non-agent Owner approval on every pull request through branch protection.
 
 Move to Gate 1 when all of these hold:
 
@@ -78,6 +81,7 @@ Move to Gate 1 when all of these hold:
 
 Agents merge Tier 0 and Tier 1 changes alone under the merge contract.
 The Owner approves Tier 2 and above.
+A required CI check running from the protected base revision reads the active gate file and blocks merges without non-agent Owner approval whenever the computed Tier exceeds Gate 1.
 
 Move to Gate 2 when all of these hold:
 
@@ -90,6 +94,7 @@ Move to Gate 2 when all of these hold:
 
 Agents merge Tier 2 changes after an Independent reviewer passes them.
 The Owner approves Tier 3 and 4.
+The required CI check from the protected base revision blocks Tier 2 merges until an Independent reviewer verdict is recorded and blocks Tier 3 and 4 without non-agent Owner approval.
 
 Move to Gate 3 when all of these hold:
 
@@ -101,12 +106,12 @@ Move to Gate 3 when all of these hold:
 ### Gate 3: steady state
 
 Agents merge Tier 0 to 2 alone under the merge contract.
-Tier 3 and Tier 4 always need the approval that [review-and-merge.md](./review-and-merge.md) requires.
+Tier 3 and Tier 4 always need the approval that [review-and-merge.md](./review-and-merge.md) requires, enforced by branch protection and forge ownership rules.
 
 ### Gate limits and regression
 
 The Review mode caps these gates: under Review mode `Always`, the Project stays at Gate 0 whatever the records say.
-An open Correction for a failure class touching a Tier 3 or 4 area, or an S1 or S2 `escaped` bug from an agent-merged change in the last 30 merges, closes agent merges and drops the Project to Gate 0 at once.
+An open Correction for a failure class touching a Tier 3 or 4 area, or an S1 or S2 `escaped` bug from an agent-merged change in the last 30 merges, closes agent merges and drops the Project to Gate 0 at once by updating the protected gate policy file (and revoking agent merge permission at the forge).
 When dropped to Gate 0, the Project climbs again with fresh counts.
 The Owner can change these thresholds with an ADR.
 

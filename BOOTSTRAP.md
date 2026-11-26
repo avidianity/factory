@@ -197,18 +197,23 @@ When the Owner chooses a higher budget for now, record it in an ADR with the dat
 4. Run every check once on the whole Project.
    Record any existing failure as known red; do not fix it in the Bootstrap change.
 
-## Step 8: hand over
+## Step 8: hand over and activate trusted CI
+
+Because the protected base branch has no Kit checks yet during Bootstrap, landing and activation happen in two steps:
 
 1. Commit with the Project's commit rules.
-2. Open one pull request.
-   The Bootstrap change touches CI and policy, so it is tier 3.
-   It needs the Owner's approval in every Review mode.
+2. Open one Bootstrap pull request.
+   The Bootstrap change touches CI and policy, so it is Tier 3.
+   It needs the Owner's explicit review and merge in every Review mode; verify each check locally and on the pull request head before asking the Owner to merge.
 3. Give the Owner a Risk summary from [templates/risk-summary.md](./templates/risk-summary.md):
    - what the Project now has, in plain words;
    - which checks run, and where;
    - the open items and the known-red list;
-   - what to do next: usually the first real task, with the exact message to type from `docs/owner-guide.md`.
+   - what to do next: activating branch protection, then the first real task with the exact message to type from `docs/owner-guide.md`.
 4. Show the Owner `docs/owner-guide.md`, and offer to walk through its first step on that first task.
-5. After the merge, create the tracker labels, then the `cleanup` issues from the plan.
+5. After the Bootstrap pull request merges onto the protected base branch:
+   - turn on forge branch protection, required base-ref status checks, non-agent Owner ownership approval for protected CI and policy paths, and Gate 0 merge restrictions (see [trusted-ci](./checks/trusted-ci.md) and [corrections.md](./core/agents/corrections.md#mandatory-gates-read-the-records));
+   - open and verify one smoke pull request (without merging unrelated changes) to confirm that policy-enforcing checks execute from the protected base revision and block unauthorized edits;
+   - create the tracker labels, then the `cleanup` issues from the plan.
 
-Bootstrap is done when the pull request is merged and the labels exist.
+Bootstrap is done when the Bootstrap pull request is merged, `trusted-ci` and Gate 0 are active and verified on the protected base branch, and the labels exist.

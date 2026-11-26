@@ -120,12 +120,13 @@ The pull request body carries the evidence.
 Use [templates/pr-evidence.md](../../templates/pr-evidence.md).
 It holds:
 
+- the exact head commit SHA that the evidence covers;
 - the Tier from the tier check, and why;
 - the task and its acceptance criteria;
 - the fail-first test: its name, and proof that it failed before the change;
-- the checks that ran, with results;
-- runtime evidence for a user-visible change, as [verification.md](./verification.md) says;
-- from Tier 2: the Safety fact and its proof, and from Tier 3: the verified `interrogate` findings and their fixes, as [planning.md](./planning.md#mandatory-proof-that-runs) says;
+- the checks that ran, backed by green forge required status checks on that exact revision;
+- runtime evidence for a user-visible change, backed by revision-stamped verifier or CI artifacts, as [verification.md](./verification.md) says;
+- from Tier 2: the Safety fact and its revision-stamped proof artifact, and from Tier 3: the verified `interrogate` findings and their fixes, as [planning.md](./planning.md#mandatory-proof-that-runs) says;
 - known gaps, deferred coverage, and failures classified as pre-existing or environmental.
 
 Remove secrets and personal data from evidence before you post it.

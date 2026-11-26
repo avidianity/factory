@@ -2,7 +2,7 @@
 
 **Invariant**:
 A pull request that deletes a test, skips a test, removes an assertion, adds a lint or type suppression, raises a test timeout, or changes CI, policy, or check configuration is at least Tier 3.
-Policy and check configuration includes the tier map, the Feedback budget file, the test-scope configuration, the comment allow-list, the duplicate-code thresholds and allow-list, the Standing Decisions ADR, `.rules`, task pages under `docs/agents/`, and domain `RULES.md` files.
+Policy and check configuration includes the tier map, the active Autonomy gate file, the Feedback budget file, the test-scope configuration, the comment allow-list, the duplicate-code thresholds and allow-list, the Standing Decisions ADR, `.rules`, task pages under `docs/agents/`, and domain `RULES.md` files.
 
 **Why**:
 An agent can make a failing check pass by weakening the check instead of fixing the code.

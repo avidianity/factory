@@ -27,12 +27,14 @@ A good test fails when a rule that a user can see breaks, not when a function is
 Never add automated tests for files that carry no application behavior or that a lower layer already validates:
 
 - declarative tool and build configuration files (linter, formatter, commit-message, compiler, bundler, database-tool, and container configs); validate them by running the tool or type checker;
-- low-churn or one-off repository and development scripts; verify them by running the script when it changes;
+- low-risk developer and repository scripts (such as local setup helpers or formatting wrappers); verify them by running the script when it changes;
 - type-only declarations, static constants, generated files, and thin framework wiring; types, the compiler, and boundary tests already cover them;
 - tautology tests that mirror configuration values or repeat implementation lines as assertions.
 
-Keep automated self-tests for custom check scripts (only when a script holds non-trivial policy logic) in a separate check-test path that runs only when check scripts change, never inside the application Feedback loops.
-The check spec [test-scope](../../checks/test-scope.md) enforces the declared application test paths and rejects config or script tests in the application suite.
+Base script exceptions on risk, never on change frequency.
+High-risk scripts (such as deployment, backup, data-migration, or custom policy check scripts) earn targeted tests or rehearsals in a separate non-application test path.
+Run that non-application test path when those scripts, their check or policy configuration, or lockfile dependencies change, never inside the application Feedback loops.
+The check spec [test-scope](../../checks/test-scope.md) enforces the declared application test paths and rejects config or low-risk script tests in the application suite.
 
 ## Mandatory: coverage scope
 
@@ -103,8 +105,8 @@ Local times are not evidence.
 - CI shards tests across parallel jobs.
 - Each check runs once per commit; no two workflows run the same job.
 - A change to documents only skips application tests in CI.
-- Keep declarative config files and repository scripts out of the application test suite, as [test-scope](../../checks/test-scope.md) requires.
-- Run custom check-script tests only when check scripts change, outside the application Relevant tier.
+- Keep declarative config files and low-risk repository scripts out of the application test suite, as [test-scope](../../checks/test-scope.md) requires.
+- Run non-application check-script and ops-script tests when those scripts, their configuration, or lockfile dependencies change, outside the application Relevant tier.
 - Less code is less to check.
   The check specs [no-dead-code](../../checks/no-dead-code.md) and [no-duplicate-code](../../checks/no-duplicate-code.md) stop code that adds time and no value.
 

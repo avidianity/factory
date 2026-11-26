@@ -27,8 +27,8 @@ Not every file in a repository earns an automated test.
 Adding tests for files that a lower layer already checks slows down every Feedback loop and adds maintenance drag without catching product bugs.
 
 - **Declarative tool and build configs** (linter, formatter, commit-message, compiler, bundler, database-tool, and container configs): run the tool or type checker; never commit unit tests that mirror config values.
-- **Low-churn or one-off repository and development scripts**: verify by running the script when it changes.
-  Only custom check scripts with non-trivial policy logic earn automated self-tests, and those live in a separate check-test path outside the application suite; see [test-scope](../checks/test-scope.md).
+- **Low-risk developer and repository scripts** (such as local setup helpers or formatting wrappers): verify by running the script when it changes.
+  Base exceptions on risk, never on change frequency: deployment, backup, data-migration, and custom policy check scripts earn targeted tests or rehearsals in a separate non-application test path triggered when those scripts, their configuration, or lockfile dependencies change; see [test-scope](../checks/test-scope.md).
 - **Type-only files, constants, generated files, and thin wiring**: let the type system, compiler, and real boundary tests cover them.
 
 Apply the same boundary to coverage, complexity-coverage, and mutation tools: collect only an explicit allow-list of application behavior paths and exclude configs, scripts, generated files, migrations, type-only files, thin entry points, and test helpers.

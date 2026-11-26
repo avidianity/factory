@@ -19,7 +19,11 @@ When CI runs check scripts from the pull request head, an agent can edit a workf
 **Runs in**: CI, on every pull request event, backed by forge branch protection and code-ownership rules.
 
 **Protected files**:
-The Project keeps one list of protected policy and CI paths in its forge ownership rules: CI workflows, check scripts, the tier map, the Feedback budget file, check allow-lists, the Standing Decisions ADR, and `.rules` with its task pages and domain `RULES.md` files.
+The Project keeps one list of protected policy and CI paths in its forge ownership rules: CI workflows, check scripts, the tier map, the active Autonomy gate file, the Feedback budget file, check allow-lists, the Standing Decisions ADR, and `.rules` with its task pages and domain `RULES.md` files.
+
+**Activation during Bootstrap**:
+When bootstrapping a Project whose protected base branch has no checks yet, land the workflows, check scripts, policy files, and forge ownership rules through an Owner-reviewed Tier 3 Bootstrap pull request first.
+Then turn on branch protection, required base-ref status checks, and Gate 0 merge restrictions, and confirm on one smoke pull request that policy checks run from the protected base revision before Bootstrap closes.
 
 **Failing case**:
 A pull request modifies a CI workflow or the tier map to downgrade an authentication change to Tier 1, and CI executes the modified script from the pull request head or lets the pull request merge without non-agent Owner approval.

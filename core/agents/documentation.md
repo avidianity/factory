@@ -7,6 +7,9 @@ This page applies when you write or change rules (`.rules`, `docs/agents/`, doma
 Each fact has one home.
 Every other document links to that home instead of repeating the fact.
 When you change behavior, contracts, topology, or operations, update the document that owns it in the same change.
+The Earned check spec [doc-freshness](../../checks/doc-freshness.md) enforces doc updates when a pull request changes declared public boundary files.
+Link `HOW-TO.md` and `STATE.md` claims to their owning source files where practical.
+Then [doc-links](../../checks/doc-links.md) fails automatically when referenced files move or are deleted.
 
 | Kind of fact | Home |
 | ------------ | ---- |

@@ -12,6 +12,7 @@ Every pull request gets a Tier from 0 to 4, computed deterministically from thre
 
 The highest Tier across all three inputs applies.
 The check applies the `tier-<n>` label and replaces any `tier-*` label that someone else set.
+When the Project uses Autonomy gates, this check (or a companion required check reading the protected base revision) compares the computed Tier against the Project's active gate policy file and blocks merge without the required approvals whenever the Tier exceeds the active gate.
 Never gate the Tier on an agent or a language model; semantic impact analysis belongs in `blast-radius` from Tier 2 onward.
 
 **Why**:

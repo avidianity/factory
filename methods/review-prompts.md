@@ -23,8 +23,10 @@ Inputs: the task contract, the diff, and the Evidence bundle.
 6. For a user-visible change, check that the evidence includes the stored effect,
    not only a screenshot, and that it comes from this revision.
 7. Reject low-value or out-of-scope tests: automated tests for declarative tool
-   configs, low-churn repository scripts, constants, generated files, or
+   configs, low-risk helper scripts, constants, generated files, or
    tautologies that mirror config values.
+8. When the diff changes public behavior, limits, or topology in a domain with
+   HOW-TO.md, STATE.md, or MAP.md, check that those docs match the diff.
 
 Verdict: PASS, FAIL, or INCONCLUSIVE.
 For FAIL, list each finding with file, line, and a concrete failing scenario.
