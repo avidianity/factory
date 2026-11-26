@@ -6,7 +6,8 @@ Every session reads the same answer, so the Owner answers each question once.
 ## Where it lives
 
 Keep it outside any Project, in the Coordinator's own folder, because Decisions often cross Projects.
-A Decision that is part of one Project's architecture also goes into that Project as an ADR.
+A Decision that is part of one Project's architecture goes into that Project as an ADR.
+Pre-approved autonomous boundaries for one Project live in that Project's Standing Decisions ADR; see [core/agents/review-and-merge.md](../core/agents/review-and-merge.md#standing-decisions).
 
 ## Entry format
 
@@ -34,6 +35,7 @@ Until: <an end date or condition, or "until changed">
 ## What the Coordinator may decide alone
 
 Start with an empty list, and let the Owner add to it.
+Tier 3 and Tier 4 concerns never belong on this list.
 Typical entries:
 
 - Which Worker gets which task.

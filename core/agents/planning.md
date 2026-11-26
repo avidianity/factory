@@ -59,6 +59,8 @@ When it gives a higher Tier than the Expected Tier, run the missing Shape and Pr
   The breakdown shows the Expected Tier of each Ticket, and each published Ticket body has an "Expected Tier" section.
 - Approval of a Spec, a Map, or a Design sketch is not permission to build it.
   Stage 6 starts only when the Owner asks to build: an ordinary request for one Ticket, `implement`, or `implement-spec`.
+  For Tier 0 to 2 work, the Owner may grant one upfront go-ahead that covers Spec, Ticket breakdown, and Build (`to-spec` through `implement-spec`).
+  Even under one upfront go-ahead, stop and ask the Owner if any Ticket reaches Expected Tier 3 or 4, if the tier check raises a change to Tier 3 or 4, or if work needs a Decision outside the Standing Decisions ADR.
   An ordinary request that fits one Ticket and needs no Decision may skip publishing the Ticket to the tracker.
 - A choice that an experiment can settle is not a Decision: prototype it, and recommend the option that the result supports.
   A choice about product behavior or preference is a Decision for the Owner.
@@ -111,6 +113,7 @@ A convincing explanation is not proof.
   At Tier 2, list it under Gaps.
 - `interrogate` and `arena` read the Owner's model settings from the Owner's own agent setup.
   The Project never commits them.
+- When the Project opts out of `pstack` in an ADR (see [skills/README.md](../../skills/README.md#opting-out-of-pstack)), Shape writes a direct Design sketch in code (types, signatures, and module boundaries with no bodies), and Prove runs `code-review`, fail-first and runtime evidence, and at Tier 3 and 4 an Independent reviewer using [methods/review-prompts.md](../../methods/review-prompts.md#independent-verifier).
 
 ## Default: briefs and long runs
 

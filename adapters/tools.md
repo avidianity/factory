@@ -43,6 +43,8 @@ Restore them on a new machine, or in CI:
 npx skills@1.9.0 experimental_install --frozen-lockfile --agent codex
 ```
 
+If `experimental_install` breaks or a remote source is unavailable, follow the pinned-commit fallback in [skills/README.md](../skills/README.md#fallback-when-the-installer-or-mirror-fails).
+
 ## JSON compactor
 
 Role: convert JSON that a command prints into a compact text form, so that an agent reads it with fewer tokens.

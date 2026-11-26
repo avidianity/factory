@@ -41,8 +41,10 @@ By default an agent may not:
 - use production credentials;
 - change billing or payments;
 - read live user or tenant data;
-- change branch rules;
+- approve pull requests, edit forge ownership rules, or bypass branch rules;
 - deploy without the approval its Tier requires.
+
+Policy-enforcing CI checks execute from the protected base revision and read pull request diffs strictly as untrusted data; see [trusted-ci](../../checks/trusted-ci.md).
 
 ## Mandatory: secrets
 

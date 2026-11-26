@@ -14,10 +14,10 @@ The agent that bootstraps a project reads the project's own stack and fits the k
 - One rules file that every coding agent reads, with a short reading map to task pages.
 - A planning pipeline from idea to proof: the Owner's Decisions become a Spec, the Spec becomes Tickets that agents can build in parallel, and each change carries proof that a run produced, scaled to its risk.
 - Task pages for planning, engineering, testing, git, review and merge, delegation, documentation, domain language, the issue tracker, runtime verification, corrections, and security.
-- A set of check specs, each built as a real check in the project's own stack and proved with a failing case and a passing case.
+- A set of Day-1 core and Earned check specs, each built as a real check with the project's own tools and proved with failing and passing cases.
 - A time budget for the Git hook, the affected tests, and CI, so that checks stay fast as the code grows.
-- No code comments, no dead code, and no duplicate code, so that each fact has one home and there is less code to check.
-- A risk tier for every change, set by a check from the changed paths, never by the agent.
+- Guardrails against comment noise, dead code, and in-module duplicate code, while allowing tagged constraint comments and intentional cross-module decoupling.
+- A deterministic risk tier for every change, computed from paths, reverse dependencies, and diff signals on the protected base revision, never by the agent.
 - A review mode that fits the person who owns the project, from "I review every diff" to "I do not read code".
 - An Owner guide: a tutorial for the person who owns the project, with the skill to start in each situation and the exact message to type.
 - Light records that show what to enforce next and when autonomy is earned: corrections, evidence in each pull request, and escaped defects.
@@ -70,7 +70,7 @@ The kit rests on these ideas.
 2. Each repeated agent mistake becomes a check at the lowest layer that can stop it.
    A rule that only lives in prose is a rule an agent can ignore.
 3. Prove one verified loop before you add more agents or more autonomy.
-4. The human makes every decision.
+4. The human makes every Decision, or sets bounded Standing Decisions in an ADR for routine work.
    Code review is a separate thing, and the project chooses who does it per risk tier.
 5. Each fact has one home.
    Every other document links to it.

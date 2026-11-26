@@ -21,7 +21,7 @@ Review mode: <Always | Critical only | Never>
 
 | Check | Status |
 | ----- | ------ |
-| <check spec> | <new / already covered by <existing check> / not needed because <reason>> |
+| <check spec> | <new Day-1 / new Earned (opt-in) / deferred as Earned / already covered by <existing check> / not needed because <reason>> |
 
 ## Conflicts and your answers
 

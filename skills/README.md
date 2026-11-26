@@ -136,6 +136,26 @@ The lock file entry has this shape:
 When the installed hash differs from the tables above, the upstream skill changed after this Kit release.
 Read the change before you accept it.
 
+### Opting out of pstack
+
+Both packs install by default at Bootstrap.
+When the Owner wants fewer external dependencies or chooses not to depend on a third-party mirror, record an ADR opting out of `backnotprop/pstack`.
+
+When a Project opts out:
+
+- Skip installing the `backnotprop/pstack` skills and omit them from `skills-lock.json`.
+- Remove the `pstack` rows and helper names from the Project's `docs/owner-guide.md`.
+- Use the native Shape and Prove fallback in [core/agents/planning.md](../core/agents/planning.md#mandatory-proof-that-runs).
+
+### Fallback when the installer or mirror fails
+
+The restore command in [adapters/tools.md](../adapters/tools.md#skills-installer) is marked experimental, and third-party mirrors can move or disappear.
+When the installer fails or an upstream mirror is unavailable:
+
+1. Fetch each needed skill folder from the pinned commit recorded in `skills-lock.json` (or from an Owner-approved mirror).
+2. Verify each skill's SHA-256 content hash against the tables above and `skills-lock.json` before trusting it.
+3. If the Project must stay self-contained offline, vendor the verified skills into the Project's skills folder under an ADR and stop running the remote installer in CI.
+
 ## Writing a Project skill
 
 - Put it in the Project's skills folder as `<name>/SKILL.md`.

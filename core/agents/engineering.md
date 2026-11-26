@@ -76,8 +76,8 @@ A slower path that removes a class of defects beats a faster path that needs a r
 
 ## Mandatory: no code comments
 
-Code holds no comments.
-A comment repeats a fact that has another home, and no check keeps it true, so it goes stale.
+Code holds no bare or narration comments.
+A narration comment repeats a fact that has another home, and no check keeps it true, so it goes stale.
 
 Put each fact in its home instead:
 
@@ -85,13 +85,15 @@ Put each fact in its home instead:
 | ---- | ---- |
 | What the code does | Names: rename the function or variable until a comment would add nothing |
 | Why the code is shaped this way | An ADR for a decision; the commit message for one change |
-| Why a workaround exists | A fail-first test named after the upstream defect, so that removing the workaround fails it |
+| Why a workaround exists | A fail-first test named after the upstream defect; add `WORKAROUND(<ref>): <why>` only when a test alone cannot explain or reproduce the upstream defect |
+| Non-obvious local technical constraint (ordering, concurrency, security timing) | A tagged constraint comment: `INVARIANT: <why>` or `SAFETY: <why>`, when names, types, or tests cannot express it |
 | Work to do later | A tracker issue |
 | How to call a module | Its `HOW-TO.md` |
 | Old code | Version control; delete commented-out code |
 
 The check spec [no-comments](../../checks/no-comments.md) enforces this rule and holds the allow-list.
-The allow-list covers only lines that a tool reads: a shebang, a required license header, a language or build directive, and doc comments on the exported API of a published package.
+The allow-list covers lines that a tool reads (a shebang, a required license header, a language or build directive, doc comments on the exported API of a published package) and tagged constraint comments (`INVARIANT:`, `SAFETY:`, and `WORKAROUND(<ref>):`).
+`code-review` checks that each new tagged constraint comment captures a real technical constraint that names, types, or tests cannot express.
 The check scans only the lines that a change adds.
 Existing comments go through their cleanup issue.
 
