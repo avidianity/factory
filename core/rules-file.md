@@ -139,7 +139,7 @@ See `docs/agents/domain.md`.
 - A requested Code review pauses integration and publishing until approval; design approval is not permission to build.
 - The Tier comes from the tier check on the protected base revision, never from the agent.
 - Write no code comments outside the allow-list in `docs/checks/no-comments.md`.
-- Add tests and collect coverage only on declared application paths in `docs/checks/test-scope.md`; never test or measure coverage on tool configs or low-risk helper scripts.
+- Put application tests and coverage only on declared application paths, and high-risk or check-script tests only in the separate script-test path, per `docs/checks/test-scope.md`; never test or measure coverage on tool configs or low-risk helper scripts.
 - Keep `.rules` under 8,000 bytes for generalized rules and routing only; read `docs/agents/documentation.md` before changing any rule or doc.
 - Never add agent attribution or co-author lines to commits, pull requests, issues, or comments.
 
