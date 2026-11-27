@@ -9,7 +9,7 @@ Upgrade never undoes a choice that the Project already made on purpose.
 The rules in [BOOTSTRAP.md](./BOOTSTRAP.md#rules-for-the-agent-that-bootstraps) apply here too.
 In addition:
 
-- An ADR that settled a Stack-convention conflict or a Kit rule wins over the new Kit text, unless the Owner decides otherwise.
+- An ADR that settled a Stack-convention conflict, a batteries-included framework or library boundary, or a Kit rule wins over the new Kit text, unless the Owner decides otherwise.
 - A Project rule that is stricter than the Kit stays.
 - Upgrade changes guidance and checks only.
   It never changes application code.
@@ -43,7 +43,8 @@ Run the Survey from [BOOTSTRAP.md](./BOOTSTRAP.md#step-2-survey-the-project), an
 - every ADR that mentions the Kit, a Kit rule, or a Stack-convention conflict;
 - every change the Project made to its copies of Kit pages since the last upgrade, from Git history;
 - every check that the Project built from a Kit check spec, and whether it still passes both ways;
-- open Corrections and Escaped defects that touch a changed Kit rule.
+- open Corrections and Escaped defects that touch a changed Kit rule;
+- whether the Project added or removed a conditional capability (such as a SQL database) since the last Bootstrap or Upgrade.
 
 The Survey stays read-only.
 
@@ -59,7 +60,8 @@ For each change from step 2:
 | Changed rule, the Project changed its copy | Ask the Owner: keep the Project's version, take the Kit's, or merge |
 | Change conflicts with an ADR | Keep the ADR's choice; tell the Owner, and ask only when the reason in the ADR no longer holds |
 | Removed rule | Ask the Owner whether to remove it from the Project |
-| New check spec | Plan to build Day-1 core specs under step 6 of [BOOTSTRAP.md](./BOOTSTRAP.md); ask the Owner whether to adopt or defer new Earned specs |
+| New check spec | Plan to build Day-1 core specs whose condition holds under step 6 of [BOOTSTRAP.md](./BOOTSTRAP.md); ask the Owner whether to adopt or defer new Earned specs |
+| Conditional task page or check | Adopt when the Project uses that capability and no batteries-included framework or library ADR supersedes it; skip otherwise |
 | New or changed pinned skill | Plan to install it at the hash in [skills/README.md](./skills/README.md) |
 | Removed Kit skill | Ask the Owner whether to delete the Project's copy |
 

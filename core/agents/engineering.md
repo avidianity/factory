@@ -44,7 +44,11 @@ Correct only the factual claim; the decision built on it may still stand for oth
 The Kit names no stack, so a Kit rule can contradict what the Project's language, framework, or tool expects.
 Examples: the stack wants tests in a separate tree, but a Kit default says colocate them; the stack's generator writes files that a Kit check rejects.
 
-When you find such a conflict:
+When the Project uses a batteries-included framework or library whose native conventions (such as layout, configuration, routing, ORM, migrations, code generation, or test structure) contradict Kit conventions, do not apply the contradicting Kit rules or checks.
+Follow the framework's or library's own documented conventions, and record that boundary once in a single stack ADR (naming the framework or library and which Kit pages or checks are omitted or scoped down) instead of raising a separate conflict per rule.
+Keep non-contradicting safety, review, tier, secret, and verification boundaries active.
+
+When you find any other stack-convention conflict:
 
 1. Stop before you choose a side.
 2. Ask the Owner in plain words: what the stack expects, what the Kit rule says, and your recommendation with one reason.

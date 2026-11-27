@@ -4,11 +4,12 @@ Core holds the stack-free rules that every Project receives.
 
 - [rules-file.md](./rules-file.md): the template for the Project's one rules file.
 - [owner-guide.md](./owner-guide.md): the template for the Project's Owner guide, the tutorial that tells the Owner which skill to start and what to type.
-- [agents/](./agents/): task pages that Bootstrap copies to the Project's `docs/agents/`, with Project commands and paths filled in.
+- [agents/](./agents/): task pages that Bootstrap copies to the Project's `docs/agents/`, with Project commands and paths filled in (conditional pages only when applicable).
 
 | Page | Owns |
 | ---- | ---- |
 | [engineering.md](./agents/engineering.md) | External facts, dependencies, configuration, errors, stack-convention conflicts |
+| [sql.md](./agents/sql.md) | SQL schema ownership, migrations, rollouts, recovery, concurrency, query safety, contracts, performance, and verification (copied when the Project uses SQL and no batteries-included framework or library supersedes it) |
 | [testing.md](./agents/testing.md) | Behavior tests, the check ladder, the known-red baseline, failure classes, the stopping rule, flaky tests |
 | [git.md](./agents/git.md) | Authorization to commit and publish, branches, commits, the CI gate, the merged-result check, stacks |
 | [review-and-merge.md](./agents/review-and-merge.md) | Tiers, Review modes, Decisions, the merge contract, the Evidence bundle, the Risk summary |

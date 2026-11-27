@@ -4,6 +4,7 @@ Factory is a kit of documents that sets up a software project for development wi
 It gives a new or existing project its rules, checks, review policy, and agent workflows before real development starts.
 It holds no code and names no tech stack.
 The agent that bootstraps a project reads the project's own stack and fits the kit to it.
+When a project uses a batteries-included framework or library whose native conventions contradict Kit conventions, those native conventions win and contradicting Kit rules and checks are omitted.
 
 - Author: John Michael Manlupig
 - Email: <manlupigjohnmichael@gmail.com>
@@ -13,7 +14,7 @@ The agent that bootstraps a project reads the project's own stack and fits the k
 
 - One thin rules file (under 8,000 bytes) that holds generalized project rules and a routing map to task pages and domain folders (`RULES.md`, `HOW-TO.md`, `STATE.md`, `GLOSSARY.md`).
 - A planning pipeline from idea to proof: the Owner's Decisions become a Spec, the Spec becomes Tickets that agents can build in parallel, and each change carries proof that a run produced, scaled to its risk.
-- Task pages for planning, engineering, testing, git, review and merge, delegation, documentation, domain language, the issue tracker, runtime verification, corrections, and security.
+- Task pages for planning, engineering, SQL (where applicable), testing, git, review and merge, delegation, documentation, domain language, the issue tracker, runtime verification, corrections, and security.
 - A set of Day-1 core and Earned check specs, each built as a real check with the project's own tools and proved with failing and passing cases.
 - A time budget for the Git hook, the affected tests, and CI, so that checks stay fast as the code grows.
 - Guardrails against comment noise, dead code, and in-module duplicate code, while allowing tagged constraint comments and intentional cross-module decoupling.

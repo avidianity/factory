@@ -15,7 +15,9 @@ It works for a new, empty Project and for an existing Project with code, rules, 
 - Never overwrite an existing file, rule, hook, or CI job without the Owner's answer.
 - The Kit names no tech stack.
   Take every stack fact from the Project itself, in the order that [core/agents/engineering.md](./core/agents/engineering.md#mandatory-external-facts) gives.
-- When the Project's stack convention contradicts a Kit rule, stop and ask the Owner.
+- When the Project uses (or the Owner plans to use) a batteries-included framework or library whose native conventions contradict Kit conventions, do not force the contradicting Kit rules or checks onto the Project.
+  Follow the framework's or library's own conventions, omit contradicting task pages or check specs (including [core/agents/sql.md](./core/agents/sql.md) and SQL checks when the framework owns the database layer), and record that boundary once in a single stack ADR.
+- When any other stack convention contradicts a Kit rule, stop and ask the Owner.
   Show both sides and your recommendation.
   Record the answer as an ADR so that Upgrade does not ask again.
 - Make no Decision for the Owner.
@@ -45,7 +47,7 @@ Find and write down:
 
 - **Shape**: empty, or existing code.
 - **Stack**: languages, runtimes, frameworks, package managers, databases, and their installed versions, from manifests, lockfiles, image tags, and `--version` output.
-- **Stack conventions**: where the stack expects application source code, tests, config, repository scripts, migrations, and generated files to live; how it formats and lints; what it treats as the entry point.
+- **Stack conventions**: where the stack expects application source code, tests, config, repository scripts, migrations, and generated files to live; how it formats and lints; what it treats as the entry point; and whether a batteries-included framework or library governs layout, config, ORM, migrations, or tests with conventions that contradict Kit rules.
   Record the Project's declared application source paths and application test paths so checks and the test runner exclude root configs, tooling configs, and repository scripts.
   Read the docs that ship with the installed versions first.
 - **Existing agent rules**: every rules file, skill folder, and agent config that [adapters/agents.md](./adapters/agents.md) lists.
@@ -57,6 +59,7 @@ Find and write down:
 - **Risk areas**: code that touches authentication, authorization, tenant or user isolation, money, personal data, secrets, schema migrations, destructive jobs, deployment, and production access.
   These seed the tier map.
 - **Runtime**: how the application starts locally, what it needs (database, queue, credentials), and whether two copies can run at once.
+- **Database and SQL (when present)**: SQL engine and installed version, driver or ORM, migration tool and migration paths, repeatable scripts path, baseline or schema drift status, application database role, naming, key, numeric precision, and temporal conventions, and how to run a disposable local database.
 
 Done when every item above has an answer or the word UNKNOWN.
 
@@ -92,7 +95,7 @@ Skip a question when the Survey already answers it beyond doubt, and tell the Ow
    "Is there anything an agent must never do here?"
    Start from the list in [core/agents/security.md](./core/agents/security.md#mandatory-forbidden-actions) and ask what to add.
 9. **Stack-convention conflicts.**
-   One message per conflict that the Survey found.
+   Confirm once whether a batteries-included framework or library supersedes contradicting Kit conventions (and whether to omit or scope `docs/agents/sql.md` and SQL checks), then ask one message per remaining conflict that the Survey found.
 10. **Adoption plan conflicts, for an existing Project only.**
     One message per conflict in Step 4.
 
@@ -105,7 +108,7 @@ For an existing Project, this is the Adoption plan.
 
 The plan lists:
 
-- Each file that Bootstrap will create, with one line about its purpose.
+- Each file that Bootstrap will create, with one line about its purpose (include conditional task pages such as `docs/agents/sql.md` only when the Project uses that capability).
 - Each existing file that Bootstrap will move or merge, and where its content goes.
   Existing rules move into the Project rules file; they are not dropped.
 - Each Day-1 core check that Bootstrap will build, each Earned check (opted-in or deferred), and each check spec that an existing check already covers.
@@ -124,9 +127,9 @@ Write these, fitted to the Project:
 | ------------------------------------------ | -------------------------------------------------------------------- |
 | Rules file, with agent file names as links | [core/rules-file.md](./core/rules-file.md), [adapters/agents.md](./adapters/agents.md) |
 | `docs/owner-guide.md`                      | [core/owner-guide.md](./core/owner-guide.md), with the agents, Review mode, and Project skills filled in |
-| `docs/agents/*.md`                         | [core/agents/](./core/agents/), with Project commands and paths filled in |
+| `docs/agents/*.md`                         | [core/agents/](./core/agents/), with Project commands and paths filled in; copy conditional pages such as [sql.md](./core/agents/sql.md) only when applicable |
 | `docs/checks/*.md`                         | The check specs that the Project builds, each with its "Implemented by" line |
-| `docs/adr/`                                | One ADR for the Review mode; one per stack-convention conflict; one per rejected Kit rule |
+| `docs/adr/`                                | One ADR for the Review mode; one stack ADR when a batteries-included framework or library supersedes contradicting Kit conventions; one per remaining stack-convention conflict or rejected Kit rule |
 | `GLOSSARY.md`                              | [templates/glossary.md](./templates/glossary.md), seeded from the Purpose answer |
 | Skills folder and `skills-lock.json`       | [skills/README.md](./skills/README.md): copy the Kit's own skills, install every pinned skill |
 | Tracker labels                             | [core/agents/issue-tracker.md](./core/agents/issue-tracker.md#mandatory-labels) |
@@ -146,6 +149,8 @@ Rules for this step:
 - In an existing Project, keep every existing rule that the Owner kept.
   Put generalized project rules in `.rules` (under 8,000 bytes), cross-cutting workflow rules in `docs/agents/`, and domain-specific rules or current-state docs in domain folders (`RULES.md`, `STATE.md`, `HOW-TO.md`) linked from `MAP.md` or `.rules`.
 - Create `MAP.md` and domain folders lazily when the Project has multiple domains or active subsystems; do not create empty placeholder docs at Bootstrap.
+- When the Project uses a SQL database and no batteries-included framework or library with contradicting database conventions owns the database layer, copy [core/agents/sql.md](./core/agents/sql.md), keep its routing row in `.rules`, and derive engine, driver, installed versions, migration commands, contract-proof limits, and naming, key, precision, and temporal conventions into the Project's database domain docs (`docs/domains/database/HOW-TO.md`, `STATE.md`) or ADRs.
+  When the Project has no SQL database, or when a batteries-included framework or library supersedes these conventions, omit `docs/agents/sql.md`, its `.rules` row, and contradicting SQL check specs (or scope `docs/agents/sql.md` to raw-SQL escape hatches if the Owner chooses).
 - In an existing Project with `CONTEXT.md` glossaries, move each one to `GLOSSARY.md` with a Git move, and update every link to it.
 - Install the pinned skills with the commands in [adapters/tools.md](./adapters/tools.md#skills-installer).
   Compare each hash in `skills-lock.json` with [skills/README.md](./skills/README.md).
@@ -163,6 +168,7 @@ For each check spec to build:
 
 1. Read the check spec.
 2. Build the check in the Project's own stack, where the spec says it runs: a hook, CI, or both.
+   Prefer a tool that the Project already has, or a recommended default tool from [adapters/tools.md](./adapters/tools.md).
    For syntax-aware checks, use a compiler, linter, or syntax-tree parser; never write a custom regular-expression script over raw source text.
    Configure policy-enforcing CI checks to execute and read policy files from the protected base revision, as [trusted-ci](./checks/trusted-ci.md) requires.
 3. Run the check on every failing case in the spec.
@@ -193,6 +199,7 @@ When the Owner chooses a higher budget for now, record it in an ADR with the dat
    - "Where does a new domain term go?"
    - "The Owner approved an idea. How does it become work, and which Ticket do you start first?"
    - "The Owner has a new feature idea. What exactly does the Owner type first?"
+   - When the Project has `docs/agents/sql.md`: "How do you add a schema change and prove a SQL query contract here?"
 3. Fix each file that led to a wrong answer, and ask again.
 4. Run every check once on the whole Project.
    Record any existing failure as known red; do not fix it in the Bootstrap change.

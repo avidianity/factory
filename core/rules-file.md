@@ -91,6 +91,7 @@ For a narrow operational request (such as committing, pushing, or running one co
 | ---- | ----------- | -------------------------- |
 | Plan, spec, or split work, design a change, or build or prove a Ticket | `docs/agents/planning.md` | `docs/agents/issue-tracker.md` before you publish a Spec, a Ticket, or a Map |
 | Write or review application code, config, or dependencies | `docs/agents/engineering.md` | <stack page> before you add, remove, or upgrade a dependency; `MAP.md` before you cross domain boundaries |
+| Write or review SQL queries, database schemas, migrations, or data backfills (SQL Projects only) | `docs/agents/sql.md` | `docs/agents/security.md` before touching production data; `docs/agents/review-and-merge.md` before breaking or destructive changes |
 | Implement behavior, fix a bug, run checks, or defer tests | `docs/agents/testing.md` | `docs/agents/verification.md` before you change a user-visible feature |
 | Commit, push, open or merge a pull request | `docs/agents/git.md` | `docs/agents/review-and-merge.md` before you open or merge a pull request |
 | Delegate, review subagent work, or hand work off | `docs/agents/delegation.md` | |
@@ -156,6 +157,7 @@ See `docs/agents/domain.md`.
 - Every command in the rules file must exist and work at Bootstrap time.
   Write UNKNOWN and open an issue when it does not.
 - The reading map has one row per task page that the Project has.
+  Include the `docs/agents/sql.md` row only when the Project uses a SQL database and no batteries-included framework or library with contradicting database conventions supersedes it; omit it otherwise.
   Add Project rows for each area that has its own page, such as deployment or a public SDK.
 - Keep the boundary list short.
   Each boundary is a constraint that no task may break; anything narrower goes in a task page.

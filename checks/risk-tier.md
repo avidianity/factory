@@ -7,7 +7,7 @@ Every pull request gets a Tier from 0 to 4, computed deterministically from thre
    A path in no list is Tier 2.
 2. **Reverse dependencies**: any changed file that a Tier 3 or Tier 4 path transitively imports or depends on inherits that Tier, computed from the Project's dependency graph.
    When a stack lacks a static dependency graph, mark shared foundation folders Tier 3 in the tier map.
-3. **Diff signals**: dependency manifest or lockfile changes are at least Tier 2; destructive database migrations or data-dropping operations, new external network endpoints, secret reads, and authentication or authorization guards outside known risk folders are at least Tier 3.
+3. **Diff signals**: dependency manifest or lockfile changes are at least Tier 2; schema migrations, new external network endpoints, secret reads, and authentication or authorization guards outside known risk folders are at least Tier 3; bulk data change scripts and irreversible data-dropping operations (such as dropping populated tables or columns or truncating tables) are Tier 4.
    [test-oracle-guard](./test-oracle-guard.md) adds Tier 3 signals for weakened tests, checks, or policy files.
 
 The highest Tier across all three inputs applies.

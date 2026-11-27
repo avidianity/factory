@@ -27,6 +27,11 @@ Inputs: the task contract, the diff, and the Evidence bundle.
    tautologies that mirror config values.
 8. When the diff changes public behavior, limits, or topology in a domain with
    HOW-TO.md, STATE.md, or MAP.md, check that those docs match the diff.
+9. When the diff changes SQL queries, schemas, migrations, or backfills, check
+   that applied migrations stay immutable, dynamic SQL is parameterized or
+   allow-listed, compatibility and recovery limits are stated, and query
+   contracts have real-engine or schema-backed proof rather than handwritten
+   type assertions.
 
 Verdict: PASS, FAIL, or INCONCLUSIVE.
 For FAIL, list each finding with file, line, and a concrete failing scenario.

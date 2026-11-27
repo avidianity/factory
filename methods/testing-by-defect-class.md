@@ -19,6 +19,9 @@ Choose a test by the kind of defect it must catch, not by fashion.
 | Performance | Profiling and benchmark replay | Cold and warm runs, load, release build, data volume | A long-running performance suite |
 | Prompt injection | A test with untrusted content | A hostile file or tool result tells the agent to leak data | Tool restrictions at the policy level |
 | Configuration or deployment | Canary release, smoke tests, rollback rehearsal | A missing setting, a stale migration, a failed provider | Release verification and alerts |
+| SQL or schema contract drift | Schema-derived types, database-backed SQL checks, or real-engine integration tests | Pass nulls, boundary numbers, decimals, dates, and JSON through the real driver | Freshness check in CI plus real-engine contract suite |
+| Unsafe dynamic SQL construction | Parameterized queries, explicit allow-lists, and syntax-tree lint or type rules | Pass hostile input in values, sort keys, and filter names | Strict typed query wrappers or driver identifier helpers |
+| Unsafe schema or data migration | Clean-create and baseline upgrade verification on a disposable target engine | Run migrations on synthetic rows with constraints, concurrent writes, and interrupted backfills | Expand, migrate, switch, contract rollout and tested restore drill |
 | Invalid tool or build config | The tool itself, its schema, and the type checker | Run the tool on one failing sample when changing the config | CI execution of the tool, never a config unit test |
 
 ## When no automated test is the right tool
