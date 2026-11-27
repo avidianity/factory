@@ -36,6 +36,7 @@ A passing case does not prove that the whole class of bugs is absent.
 | TEN-08 | An AI request asks for another tenant's private data | The tool layer refuses, whatever the wording |
 | TEN-09 | Logs would contain a token or personal data | Sensitive fields are removed |
 | TEN-10 | Support and admin roles have different scopes | The privilege matrix holds for allowed and refused cases |
+| TEN-11 | A database test runs as a superuser or table owner instead of the application role | Authorization and isolation tests run under the actual least-privilege application role |
 
 ## Money, credits, and retries
 
@@ -118,3 +119,6 @@ A passing case does not prove that the whole class of bugs is absent.
 | OPS-08 | The interface slows down only with many timers | A representative profile finds it |
 | OPS-09 | A feature's route changes and its Feature map does not | Verification maintenance reports drift |
 | OPS-10 | A dependency update changes API behavior | A contract or integration check fails |
+| OPS-11 | A migration upgrades a supported baseline with existing synthetic rows and new constraints | Upgrade preserves data, enforces constraints, and matches a clean install with zero drift |
+| OPS-12 | A bounded data backfill stops halfway and restarts after a crash | Progress resumes cleanly with safe retries, no duplicate external effects, and verified postconditions |
+| OPS-13 | Old and new application versions write concurrently during a breaking schema rollout | Expand, migrate, switch, and contract phases keep concurrent reads and writes consistent |

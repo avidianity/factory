@@ -3,7 +3,7 @@
 This page names tools that fit the Kit's neutral roles.
 Each tool is an example; use the Project's or the Owner's own tool when it fills the role.
 
-Last checked: 2026-11-19.
+Last checked: 2026-11-27.
 
 ## Isolated checkouts
 
@@ -66,6 +66,23 @@ Only the Fleet uses this role.
 | cmux | A terminal app for agent sessions, with workspaces and surfaces that scripts can address. |
 
 Prefer the agents' own messaging between sessions over typing into a terminal, because typed text can mix with a person's input.
+
+## Static checks, blast radius, and SQL analysis
+
+Role: default recommended tool for structural code checks, reverse-dependency lookup, and static AST analysis on `.sql` files across the Kit's check specs.
+
+| Tool | How |
+| ---- | --- |
+| `codeint` (`avidianity/codeint`, version `0.8.0` checked) | Run `codeint init --adopt` to onboard an existing repository with `.codeint/ratchet.json` and `.codeint/baseline.json`, `codeint check` for full scans, `codeint diff <base>` for pull-request regression gates, `codeint impact --changed <base>` for reverse-dependency blast radius, `codeint guard <path>` for architectural boundary checks, and `codeint doctor` for offline diagnostics. Run without a global install via `npx codeint check`, or install the standalone binary from the GitHub release. |
+
+Recommended check-spec coverage with `codeint`:
+
+- [no-duplicate-code](../checks/no-duplicate-code.md): `codeint check` and `codeint diff <base>` measure normalized token and syntax-tree Duplication with baseline and ratchet support.
+- [risk-tier](../checks/risk-tier.md): `codeint impact <paths...>` and `codeint impact --changed <base>` compute the transitive reverse-dependency blast radius across production, test, and workspace dependents; built-in SQL hazard rules (`drop`, `truncate`, `delete-without-filter`, `update-without-filter`, `grant-or-revoke`) also surface destructive SQL diff signals on `.sql` files.
+- [no-dead-code](../checks/no-dead-code.md): `codeint check` and `codeint diff <base>` detect unreachable orphan files and unused, unlisted, or dev-in-production dependencies.
+  Pair `codeint` with a language reachability tool when the Project also checks dead symbols inside live files.
+- Static SQL AST checks on `.sql` files: the built-in `sql` plugin parses `.sql` files across generic SQL, `postgresql`, `mysql` (covering MariaDB), `sqlite`, and `duckdb`, enforcing 32 AST-only hazard rules (including 5 schema-backed rules built automatically from repository SQL files without a live database).
+  SQL embedded inside host-language strings stays with that host language, so [sql-parameterization](../checks/sql-parameterization.md) in application code still uses the host language's syntax-tree linter or type checker.
 
 ## Markdown and link checks
 

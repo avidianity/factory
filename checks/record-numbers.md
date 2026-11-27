@@ -1,7 +1,8 @@
 # record-numbers
 
 **Invariant**:
-Numbered records, such as ADRs and migrations, have unique numbers with no gaps in their sequence.
+Sequential numbered records, such as ADRs and sequential migrations when the Project uses sequential migration numbers, have unique numbers with no gaps in their sequence.
+For SQL migration identifier ordering (sequential or timestamped) and immutability of applied migrations, see [migration-history](./migration-history.md).
 
 **Why**:
 Two pull requests can each add record 0042 and each pass alone.

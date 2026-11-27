@@ -20,8 +20,8 @@ Every check spec has these sections:
 
 1. Read the check spec.
 2. Find the tool in the Project's stack that fits: a compiler, a linter, a syntax-tree parser, a test, a hook script, or a CI step.
-   Prefer a tool that the Project already has.
-3. For checks that parse source code (`no-comments`, `no-dead-code`, `no-duplicate-code`, `no-suppressions`, and reverse-dependency lookup in `risk-tier`), use a compiler, linter, or syntax-tree parser.
+   Prefer a tool that the Project already has, or a recommended default tool from [adapters/tools.md](../adapters/tools.md).
+3. For checks that parse source code (`no-comments`, `no-dead-code`, `no-duplicate-code`, `no-suppressions`, `sql-parameterization`, and reverse-dependency lookup in `risk-tier`), use a compiler, linter, or syntax-tree parser.
    Never build a syntax-aware check as a custom regular-expression script over raw source text.
    When no suitable tool exists in the Project's stack for an Earned check, leave the check open in the Adoption plan instead of shipping a fragile script.
 4. Build the check where the spec says it runs.
@@ -37,6 +37,7 @@ A check that a hook runs must also run in CI, because a hook can be skipped on a
 ## Day-1 core specs
 
 Bootstrap builds every Day-1 core spec whose condition holds for the Project.
+When a batteries-included framework or library supersedes contradicting Kit conventions in a stack ADR, omit any check spec that contradicts that framework's native workflow.
 
 | Spec | Applies when |
 | ---- | ------------ |
@@ -62,6 +63,8 @@ Bootstrap builds every Day-1 core spec whose condition holds for the Project.
 | [behavior-has-test](./behavior-has-test.md) | The Project has application code |
 | [test-scope](./test-scope.md) | The Project has application code |
 | [no-suppressions](./no-suppressions.md) | The Project has a linter or type checker |
+| [migration-history](./migration-history.md) | The Project has SQL migrations not superseded by a batteries-included framework's native migration workflow |
+| [migration-apply](./migration-apply.md) | The Project has SQL migrations not superseded by a batteries-included framework's native migration workflow |
 
 ## Earned specs
 
@@ -78,6 +81,7 @@ Otherwise, build it when a Correction or codebase growth proves the need.
 | [config-access](./config-access.md) | The Project has application code |
 | [no-network-in-tests](./no-network-in-tests.md) | The Project has automated tests |
 | [doc-freshness](./doc-freshness.md) | The Project has application code and domain docs (`HOW-TO.md`, `STATE.md`, or `MAP.md`) |
+| [sql-parameterization](./sql-parameterization.md) | The Project writes raw SQL in application code, has a syntax-tree linter or type checker, and is not superseded by a framework query layer |
 
 ## Adding a check spec to a Project
 
